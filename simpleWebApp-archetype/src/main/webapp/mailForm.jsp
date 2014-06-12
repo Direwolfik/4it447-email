@@ -39,12 +39,12 @@
     <input type="hidden" name="action" value="selectContact"/>
     <label for="selectedContact">Select contact:</label><br>
     <select id="selectedContact" name="selectedContact" size="1" onchange="selectAlbumForm.submit()">
-        <c:forEach items="${emailBean.contactsDAO.contacts}" var="contact">
-            <c:choose>
+        <c:forEach items="${emailBean.contactsDAO.Contacts}" var="contacts">
+          
                
-                    <option value="${contact.name}">${contact.name}</option>
+                    <option value="${contacts.name}">${contacts.name}</option>
               
-            </c:choose>
+           
         </c:forEach>
     </select><br>
 </form>
