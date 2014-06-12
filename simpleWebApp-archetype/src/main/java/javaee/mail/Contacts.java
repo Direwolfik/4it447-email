@@ -14,8 +14,8 @@ import javax.persistence.OneToMany;
 public class Contacts implements Serializable {
 	private int id;
 	private String name;
-	 @OneToMany(mappedBy = "contacts", fetch = FetchType.LAZY)
-	private List<Contact> contacts = new ArrayList<Contact>();
+	private String email;
+	private String owner;
 	
 	@Id
 	 @GeneratedValue
@@ -34,5 +34,22 @@ public class Contacts implements Serializable {
 	    public void setName(String name) {
 	        this.name = name;
 	    }
+
+		public String getEmail() {
+			return email;
+		}
+
+		public String getOwner() {
+			return owner;
+		}
+
+		public void setEmail(String email) {
+			this.email = email;
+		}
+
+		public void setOwner(String owner) {
+			this.owner = owner;
+		}
+	    
 	    
 }

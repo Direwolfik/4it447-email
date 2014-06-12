@@ -6,6 +6,7 @@ import java.io.PrintStream;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.ejb.EJB;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -24,7 +25,11 @@ public class EmailBean implements Serializable {
     private String subject;
     private String body;
     private String user;
+    
+    @EJB
+    private ContactsDAO contactsDAO;
 
+  
     public String getUser() {
         return user;
     }
@@ -57,7 +62,11 @@ public class EmailBean implements Serializable {
         this.body = message;
     }
 
-    /**
+    
+    public ContactsDAO getContactsDAO() {
+		return contactsDAO;
+	}
+	/**
      * Schválně předáváme mail session jako parametr. Kdybychom měli
      * session uloženu jako hodnotu atributu, musel by kvůli
      * serializovatelnosti být tento atribut transientní. Při aktivaci
@@ -75,14 +84,7 @@ public class EmailBean implements Serializable {
     	fileStream.println(subject);
     	fileStream.println(message);
     	fileStream.close();
-    	//String user = getUser();
-//    	File file = new File("koncept.txt");
-//		file.createNewFile();
-//		FileWriter out = new FileWriter(new File("file.txt"), false);
-//    	out.write(to);
-//    	out.write(subject);
-//    	out.write(message);
-//    	out.close();    	
+ 	
     }
     
     public void restore(Session mailSession) throws MessagingException {
