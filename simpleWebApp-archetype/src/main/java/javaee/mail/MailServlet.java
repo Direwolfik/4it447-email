@@ -3,31 +3,24 @@ package javaee.mail;
 import java.io.IOException;
 
 import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//@MultipartConfig
-//@EJBs({
-//    @EJB(beanName = "Sender",
-//            name = "Sender",
-//            beanInterface = Sender.class),
-//    @EJB(beanName = "SendEmailBean",
-//            name = "SendEmailBean",
-//            beanInterface = SendEmailBean.class)
-//})
+@MultipartConfig
 public class MailServlet extends HttpServlet {
 
 	/**
 	 * 
 	 */
+	@EJB
+    private Sender sender;
+	
 	private static final long serialVersionUID = 1L;
-	@Resource(name = "mail/myMailSession")
-	private Session mailSession;
-	Sender sender = new Sender();
+	
 
 	// @Override
 	// protected void doPost(HttpServletRequest request,
@@ -126,7 +119,7 @@ public class MailServlet extends HttpServlet {
 
 		// odešleme email
 		//emailBean.send(mailSession);
-		sender.sendToJMS(mailSession);
+		sender.sendToJMS(to,copy,subject,message);
 
 		// přesměrujeme na resumé
 		response.sendRedirect("sent.jsp");
@@ -147,7 +140,7 @@ public class MailServlet extends HttpServlet {
 		emailBean.setBody(message);
 
 		// odešleme email
-		emailBean.store(mailSession);
+		//emailBean.store(mailSession);
 
 		// přesměrujeme na resumé
 		//response.sendRedirect("sent.jsp");

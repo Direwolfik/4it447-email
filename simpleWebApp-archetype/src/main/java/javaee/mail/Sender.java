@@ -7,6 +7,8 @@ import javax.ejb.EJBException;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.jms.*;
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -30,7 +32,9 @@ public class Sender {
     @PostConstruct
     private void init() {
         try {
+        	System.out.print("Connecting...");
             connection = connectionFactory.createConnection();
+            System.out.print("Connected!");
         } catch (JMSException e) {
             throw new EJBException(e);
         }
@@ -45,23 +49,24 @@ public class Sender {
         }
     }
 
-	public void sendToJMS(javax.mail.Session mailSession) {
-		
+	public void sendToJMS(String to, String copy, String subject, String body) throws AddressException, MessagingException {		
 		try {
+			System.out.print("Vytvářím session...");
 			Session queueSession = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
+			System.out.print("Session vytvořena!");
 			MessageProducer producer = queueSession.createProducer(queue);
-            
 		                BytesMessage mailMessage = queueSession.createBytesMessage();
-		                mailMessage.setStringProperty("to", mailSession.getProperty("to"));
-		                mailMessage.setStringProperty("subject", mailSession.getProperty("subject"));
-		                mailMessage.setStringProperty("copy", mailSession.getProperty("copy"));
-		                mailMessage.setStringProperty("body", mailSession.getProperty("body"));
-		                mailMessage.setStringProperty("user", mailSession.getProperty("user"));
-
+		                mailMessage.setStringProperty("body", body);
+		                mailMessage.setStringProperty("subject", subject);
+		                mailMessage.setStringProperty("to", to);
+		                mailMessage.setStringProperty("copy", copy);
+		                
 		                producer.send(mailMessage);
-        } catch (Exception e) {
-            destroy();
-            throw new EJBException(e);
+        } catch (JMSException e) {
+        	destroy();
+        	throw new EJBException(e);
+
+            
         }
 		
 	}
