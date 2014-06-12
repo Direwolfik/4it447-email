@@ -1,25 +1,24 @@
 package javaee.mail;
 
 import java.io.IOException;
-//import java.io.PrintWriter;
-//import java.text.SimpleDateFormat;
-//import java.util.Calendar;
-//import java.util.Date;
 
-//import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
-//import javax.mail.Transport;
-//import javax.mail.internet.InternetAddress;
-//import javax.mail.internet.MimeMessage;
 import javax.annotation.Resource;
-//import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-//import javax.servlet.http.HttpSession;
 
+//@MultipartConfig
+//@EJBs({
+//    @EJB(beanName = "Sender",
+//            name = "Sender",
+//            beanInterface = Sender.class),
+//    @EJB(beanName = "SendEmailBean",
+//            name = "SendEmailBean",
+//            beanInterface = SendEmailBean.class)
+//})
 public class MailServlet extends HttpServlet {
 
 	/**
@@ -28,6 +27,7 @@ public class MailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@Resource(name = "mail/myMailSession")
 	private Session mailSession;
+	Sender sender = new Sender();
 
 	// @Override
 	// protected void doPost(HttpServletRequest request,
@@ -114,16 +114,19 @@ public class MailServlet extends HttpServlet {
 
 		// Přečteme si parametry z formuláře
 		String to = request.getParameter("to");
+		String copy = request.getParameter("copy");
 		String subject = request.getParameter("subject");
 		String message = request.getParameter("message");
 
 		// Nastavíme vlastnosti e-mail beanu
 		emailBean.setTo(to);
+		emailBean.setCopy(copy);
 		emailBean.setSubject(subject);
 		emailBean.setBody(message);
 
 		// odešleme email
-		emailBean.send(mailSession);
+		//emailBean.send(mailSession);
+		sender.sendToJMS(mailSession);
 
 		// přesměrujeme na resumé
 		response.sendRedirect("sent.jsp");
@@ -246,5 +249,7 @@ public class MailServlet extends HttpServlet {
 		// přesměrujeme na formulář
 		response.sendRedirect("mailForm.jsp");
 	}
+	
+	
 
 }

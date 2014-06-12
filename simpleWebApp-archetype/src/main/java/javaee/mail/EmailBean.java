@@ -1,8 +1,6 @@
 package javaee.mail;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.Serializable;
@@ -22,6 +20,7 @@ public class EmailBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String to;
+	private String copy;
     private String subject;
     private String body;
     private String user;
@@ -117,6 +116,14 @@ public class EmailBean implements Serializable {
         // Odešleme zprávu
         Transport.send(message);
     }
+
+	public String getCopy() {
+		return copy;
+	}
+
+	public void setCopy(String copy) {
+		this.copy = copy;
+	}
 }
 
 
