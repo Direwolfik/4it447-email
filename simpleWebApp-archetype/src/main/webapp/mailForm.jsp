@@ -23,7 +23,9 @@
 </form>
 <form action="sendMail" method="post">
     <label for="to">Komu:</label><br/>
-    <input id="to" name="to" type="text"/><br/>
+    <input id="to" name="to" type="select"/><br/>
+    <label for="to">Kopie:</label><br/>
+    <input id="copy" name="copy" type="select"/><br/>
     <label for="subject">Předmět:</label><br/>
     <input id="subject" name="subject" type="text"/><br/>
     <label for="message">Zpráva:</label><br/>
