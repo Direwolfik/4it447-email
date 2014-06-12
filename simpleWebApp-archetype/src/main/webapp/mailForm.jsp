@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head><title>E-mail formulář</title></head>
 <body>
@@ -26,6 +28,12 @@
     <input id="to" name="to" type="select"/><br/>
     <label for="to">Kopie:</label><br/>
     <input id="copy" name="copy" type="select"/><br/>
+    <label for="to">Odeslat za # minut:</label><br/>
+    <select id="time" name="time" type="select" size="1">
+    <c:forEach begin="0" end="600" step="5" var="i">
+    <option value="${i}">${i}</option>
+	</c:forEach>
+	</select> <br/>
     <label for="subject">Předmět:</label><br/>
     <input id="subject" name="subject" type="text"/><br/>
     <label for="message">Zpráva:</label><br/>

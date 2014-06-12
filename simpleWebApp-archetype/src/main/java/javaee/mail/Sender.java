@@ -26,7 +26,8 @@ public class Sender {
     private ConnectionFactory connectionFactory;
     @Resource(mappedName = "jms/sendQueue")
     private Queue queue;
-
+    Session queueSession;
+    
     private Connection connection;
 
     @PostConstruct
@@ -35,6 +36,10 @@ public class Sender {
         	System.out.print("Connecting...");
             connection = connectionFactory.createConnection();
             System.out.print("Connected!");
+            System.out.print("Vytvářím session...");
+            queueSession = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
+            System.out.print("Session vytvořena!");
+            
         } catch (JMSException e) {
             throw new EJBException(e);
         }
@@ -49,17 +54,15 @@ public class Sender {
         }
     }
 
-	public void sendToJMS(String to, String copy, String subject, String body) throws AddressException, MessagingException {		
+	public void sendToJMS(String to, String copy, String subject, String body, int time) throws AddressException, MessagingException {		
 		try {
-			System.out.print("Vytvářím session...");
-			Session queueSession = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
-			System.out.print("Session vytvořena!");
 			MessageProducer producer = queueSession.createProducer(queue);
 		                BytesMessage mailMessage = queueSession.createBytesMessage();
 		                mailMessage.setStringProperty("body", body);
 		                mailMessage.setStringProperty("subject", subject);
 		                mailMessage.setStringProperty("to", to);
 		                mailMessage.setStringProperty("copy", copy);
+		                mailMessage.setIntProperty("time", time);
 		                
 		                producer.send(mailMessage);
         } catch (JMSException e) {

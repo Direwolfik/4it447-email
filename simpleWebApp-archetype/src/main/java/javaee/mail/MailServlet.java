@@ -3,6 +3,8 @@ package javaee.mail;
 import java.io.IOException;
 
 import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -25,7 +27,8 @@ public class MailServlet extends HttpServlet {
 
 	  @EJB
 	   private ContactsDAO contactsDAO;
-	  
+	  @Resource(name = "mail/myMailSession")
+		private Session mailSession;
 
 	    @Override
 	    public void init(ServletConfig servletConfig) throws ServletException {
@@ -82,16 +85,18 @@ public class MailServlet extends HttpServlet {
 		String copy = request.getParameter("copy");
 		String subject = request.getParameter("subject");
 		String message = request.getParameter("message");
+		int time = Integer.parseInt(request.getParameter("time"));
 
 		// Nastavíme vlastnosti e-mail beanu
 		emailBean.setTo(to);
 		emailBean.setCopy(copy);
 		emailBean.setSubject(subject);
 		emailBean.setBody(message);
+		emailBean.setTime(time);
 
 		// odešleme email
 		//emailBean.send(mailSession);
-		sender.sendToJMS(to,copy,subject,message);
+		sender.sendToJMS(to,copy,subject,message,time);
 
 		// přesměrujeme na resumé
 		response.sendRedirect("sent.jsp");

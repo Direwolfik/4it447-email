@@ -1,6 +1,7 @@
 package javaee.mail;
 
 import java.util.Date;
+import java.util.Timer;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -16,7 +17,6 @@ import javax.jms.MessageListener;
 import javax.jms.Queue;
 import javax.mail.MessagingException;
 import javax.mail.Session;
-import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -32,7 +32,7 @@ import javax.persistence.PersistenceContext;
         @ActivationConfigProperty(propertyName = "destinationType",
                                   propertyValue = "javax.jms.Queue")
     })
-public class SendEmailBean implements MessageListener {
+public class SendEmailBean implements MessageListener{
 
     /**
      * Default constructor. 
@@ -52,6 +52,7 @@ public class SendEmailBean implements MessageListener {
     private Queue queue;
 
     private Connection connection;
+	private Timer scheduler;
 
     @PostConstruct
     private void init() {
@@ -74,14 +75,22 @@ public class SendEmailBean implements MessageListener {
 	/**
      * @see MessageListener#onMessage(Message)
      */
-    public void onMessage(Message message){
+	public void onMessage(Message message){
         try {
         	String to = message.getStringProperty("to");
         	String copy = message.getStringProperty("copy");
         	String subject = message.getStringProperty("subject");
         	String body = message.getStringProperty("body");
-			System.out.print("Session: "+mailSession);
+//        	Boolean hned = message.getBooleanProperty("hned");
+        	int time = message.getIntProperty("time");
+//        	int mesic = message.getIntProperty("mesic");
+//        	int den = message.getIntProperty("den");
+//        	int hodina = message.getIntProperty("hodina");
+//        	int minuta = message.getIntProperty("minuta");
+//        	int sekunda = message.getIntProperty("sekunda");
+
 			// Vytvoříme objekt zprávy
+
 			javax.mail.Message mail = new MimeMessage(mailSession);
 
 	        // Zatím nenastavujeme From, použije se default
@@ -107,7 +116,12 @@ public class SendEmailBean implements MessageListener {
 
 
 	        // Odešleme zprávu
-	        Transport.send(mail);
+	        //Transport.send(mail);
+	        System.out.print("Vytvářím Timer s časem "+time*60*1000+" milisekund");
+	        scheduler = new Timer();
+	        SendTimer timeMe = new SendTimer(mail, scheduler);
+	        scheduler.schedule(timeMe, time*60*1000);
+	        
 		} catch (JMSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

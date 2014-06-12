@@ -25,6 +25,7 @@ public class EmailBean implements Serializable {
     private String subject;
     private String body;
     private String user;
+    private int time;
     
     @EJB
     private ContactsDAO contactsDAO;
@@ -125,6 +126,14 @@ public class EmailBean implements Serializable {
 
 	public void setCopy(String copy) {
 		this.copy = copy;
+	}
+
+	public int getTime() {
+		return time;
+	}
+
+	public void setTime(int time) {
+		this.time = time;
 	}
 }
 
