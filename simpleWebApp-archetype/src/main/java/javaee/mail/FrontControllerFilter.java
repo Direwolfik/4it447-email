@@ -12,6 +12,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class FrontControllerFilter implements Filter{
 
@@ -47,8 +48,7 @@ public class FrontControllerFilter implements Filter{
 	        }
 	    }
 
-
-	 /**
+	/**
 	     * Voláno pokud v dotazu není specifikovaná akce
 	     */
 	    private void noAction(HttpServletRequest request,
@@ -61,7 +61,15 @@ public class FrontControllerFilter implements Filter{
 	            // Cookie přišlo -> uživatel je přihlášen.
 	            // Nastavíme nick uživatele jako atribut dotazu,
 	            // aby jej šlo vypisovat na stránkách.
-	            request.setAttribute("user", cookie.getValue());
+//	            request.setAttribute("user", cookie.getValue());
+	        	// Nastavíme nick uživatele jako atribut session.
+	        	HttpSession session = request.getSession();
+	        	String nickName = cookie.getValue();
+	        	// Nastavení pouze pokud ještě není v session.
+	        	if (!nickName.equals(session.getAttribute("user"))) {
+	        		session.setAttribute("user", nickName);
+	        	}
+
 	            // Předáme řízení standardním způsobem
 	            filterChain.doFilter(request, response);
 	        } else {
@@ -86,10 +94,15 @@ public class FrontControllerFilter implements Filter{
             response.addCookie(cookie);
         }
         // Předáme řízení login.jsp
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+        session.invalidate();
+        }
+
         forwardToLogin(request, response);
     }
-
-
+    
+    
     /**
      * Hledá cookie s názvem <code>cookieNick</code>
      *

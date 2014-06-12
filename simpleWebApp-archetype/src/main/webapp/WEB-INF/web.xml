@@ -11,26 +11,36 @@
     <url-pattern>/s</url-pattern>
   </servlet-mapping>
   <servlet>
-    <description>Mail Servlet</description>
-    <servlet-name>MailServlet</servlet-name>
-    <servlet-class>javaee.mail.MailServlet</servlet-class>
+  	<description>Mail Servlet</description>
+  	<servlet-name>MailServlet</servlet-name>
+  	<servlet-class>javaee.mail.MailServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>MailServlet</servlet-name>
-    <url-pattern>/sendMail</url-pattern>
+  	<servlet-name>MailServlet</servlet-name>
+  	<url-pattern>/sendMail</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
-    <welcome-file>mailForm.jsp</welcome-file>
+        <welcome-file>mailForm.jsp</welcome-file>
   </welcome-file-list>
   <filter>
-    <filter-name>FrontControllerFilter</filter-name>
-    <filter-class>
+        <filter-name>FrontControllerFilter</filter-name>
+        <filter-class>
             javaee.mail.FrontControllerFilter
         </filter-class>
-    <async-supported>true</async-supported>
-  </filter>
-  <filter-mapping>
-    <filter-name>FrontControllerFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
+        <async-supported>true</async-supported>
+    </filter>
+ 	<filter-mapping>
+        <filter-name>FrontControllerFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+  <listener>
+        <description>
+            Nastavuje uživatele do email beanu.
+        </description>
+        <listener-class>
+            javaee.mail.UserSetterForEmailBean
+        </listener-class>
+    </listener>
+ 
+ 	
 </web-app>
