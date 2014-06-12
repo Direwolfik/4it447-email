@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.mail.MessagingException;
 import javax.ejb.EJB;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -22,53 +23,21 @@ public class MailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 
-	// @Override
-	// protected void doPost(HttpServletRequest request,
-	// HttpServletResponse response) throws ServletException, IOException {
-	//
-	// response.setContentType("text/plain");
-	// response.setCharacterEncoding("UTF-8");
-	// PrintWriter output = response.getWriter();
-	//
-	// // sdělíme kontejneru, v jakém kódování
-	// // očekáváme data od klienta
-	// request.setCharacterEncoding("UTF-8");
-	//
-	// // metoda getParameter(paramName) vrací
-	// // hodnotu parametru
-	// String to = request.getParameter("to");
-	// String subject = request.getParameter("subject");
-	// String message = request.getParameter("message");
-	//
-	// // zavoláme pomocnou metodu - zatím nedělá nic
-	// sendMail(to, subject, message);
-	//
-	// // Odpověď bude obsahovat resumé
-	//
-	// HttpSession session = request.getSession();
-	// session.setAttribute("resume.to", to);
-	// session.setAttribute("resume.subject", subject);
-	// session.setAttribute("resume.message", message);
-	//
-	// response.sendRedirect(request.getRequestURI());
-	//
-	// output.flush();
-	//
-	// // // Odpověď bude obsahovat resumé
-	// // output.println("Email odeslán");
-	// // output.println("Komu: " + to);
-	// // output.println("Předmět: " + subject);
-	// // output.println("Zpráva: " + message);
-	// // output.println("MailSession: " + mailSession);
-	// //
-	// // output.flush();
-	// }
+	  @EJB
+	   private ContactsDAO contactsDAO;
+	  
+
+	    @Override
+	    public void init(ServletConfig servletConfig) throws ServletException {
+	        // Zpřístupníme albumDAO JSP stránkám přes kontext aplikace
+	        servletConfig.getServletContext().setAttribute("contactsDAO", contactsDAO);
+	    }
 
 	 @Override
 	    protected void doPost(HttpServletRequest request,
 	                          HttpServletResponse response)
 	            throws ServletException, IOException {
-
+		 
 	        // Při HTTP metodě POST se očekává, že je v session
 	        // k dispozici e-mail bean.
 	        EmailBean emailBean = (EmailBean)
@@ -88,7 +57,10 @@ public class MailServlet extends HttpServlet {
 	                doStore(emailBean, request, response);
 	            } else if ("restore".equals(action)) {
 	                createEmailBean(request, response);
-	            } else {
+	            } else if("pridat".equals(action)) {
+	            	
+	            	doAddContact(emailBean,request,response);
+	            }else {
 	                throw new ServletException("No action specified");
 	            }
 
@@ -124,6 +96,15 @@ public class MailServlet extends HttpServlet {
 		// přesměrujeme na resumé
 		response.sendRedirect("sent.jsp");
 	}
+	private void doAddContact(EmailBean emailBean, HttpServletRequest request,
+			HttpServletResponse response) throws IOException{
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		String owner = request.getParameter("owner");
+		
+		contactsDAO.addContact(name,email, owner);
+		response.sendRedirect("mailForm.jsp");
+	}
 	
 	private void doStore(EmailBean emailBean, HttpServletRequest request,
 			HttpServletResponse response) throws IOException,
@@ -146,67 +127,7 @@ public class MailServlet extends HttpServlet {
 		//response.sendRedirect("sent.jsp");
 	}
 
-//	private void sendMail(String to, String subject, String msg)
-//			throws ServletException {
-//		try {
-//			// Vytvoříme objekt zprávy
-//			Message message = new MimeMessage(mailSession);
-//
-//			// Zatím nenastavujeme From, použije se default
-//			// z konfigurace serveru
-//			// message.setFrom();
-//			message.setRecipients(Message.RecipientType.TO,
-//					InternetAddress.parse(to, false));
-//
-//			// Nastavíme předmět
-//			message.setSubject(subject);
-//
-//			// Vložíme text zprávy
-//			message.setText(msg);
-//
-//			// Nastavíme hlavičku indikující mailového klienta
-//			message.setHeader("X-Mailer", "My Mailer");
-//
-//			// Nastavíme datum odeslání
-//			Date timeStamp = new Date();
-//			message.setSentDate(timeStamp);
-//
-//			// Odešleme zprávu
-//			Transport.send(message);
-//
-//			getServletContext().log("Mail sent to " + to + ".");
-//		} catch (MessagingException e) {
-//			throw new ServletException(e);
-//		}
-//	}
 
-	// @Override
-	// protected void doGet(HttpServletRequest request,
-	// HttpServletResponse response)
-	// throws ServletException, IOException {
-	//
-	// response.setContentType("text/plain");
-	// response.setCharacterEncoding("UTF-8");
-	// PrintWriter output = response.getWriter();
-	//
-	// // Odpověď bude obsahovat resumé
-	// HttpSession session = request.getSession();
-	// RequestDispatcher rd = request.getRequestDispatcher("sent.jsp");
-	// String timeStamp = new
-	// SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(Calendar.getInstance().getTime());
-	// request.setAttribute("to", session.getAttribute("resume.to"));
-	// request.setAttribute("subject", session.getAttribute("resume.subject"));
-	// request.setAttribute("message", session.getAttribute("resume.message"));
-	// request.setAttribute("now", timeStamp);
-	// rd.forward(request, response);
-	// response.sendRedirect("sent.jsp");
-	// output.println("Email odeslán");
-	// output.println("Komu:" + session.getAttribute("resume.to"));
-	// output.println("Předmět:" + session.getAttribute("resume.subject"));
-	// output.println("Zpráva:" + session.getAttribute("resume.message"));
-	//
-	// output.flush();
-	// }
 
 	@Override
 	protected void doGet(HttpServletRequest request,

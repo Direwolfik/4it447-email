@@ -34,5 +34,32 @@
     <input type="submit" value="Odeslat"/>
 	<input type="hidden" name="action" value="send">
 </form>
+
+<form id="selectContactForm" action="" method="post">
+    <input type="hidden" name="action" value="selectContact"/>
+    <label for="selectedContact">Select contact:</label><br>
+    <select id="selectedContact" name="selectedContact" size="1" onchange="selectAlbumForm.submit()">
+        <c:forEach items="${emailBean.contactsDAO.Contacts}" var="contacts">
+          
+               
+                    <option value="${contacts.name}">${contacts.name}</option>
+              
+           
+        </c:forEach>
+    </select><br>
+</form>
+
+<form action="kontakty" method="post">
+    <input type="hidden" name="action" value="pridat"/><br>
+    <h3>Vložit nový kontakt</h3>
+    <label for="name">Jméno:</label><br>
+    <input id="name" type="text" name="name"/><br>
+    <label for="email">Email:</label><br>
+    <input id="email" type="text" name="email"/><br>
+    <input type="hidden" name="owner" value="${emailBean.user}"/>
+    <input type="submit" value="Přidat"/><br>
+</form>
+
+
 </body>
 </html>

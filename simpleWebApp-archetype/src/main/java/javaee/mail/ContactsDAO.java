@@ -3,10 +3,9 @@ package javaee.mail;
 import java.util.List;
 
 public interface ContactsDAO {
+		List<Contacts> getContactsByOwner(String owner);
+		void addContact(String name, String email, String owner);
+		void removeContacts(int[] contactIDs, String owner);
 		List<Contacts> getContacts();
-		void addContact(String name, String email);
-		Contact findContact(String name);
-		void updateContact(Contact contact);
-		void removeContacts(int[] contactIDs);
-		List<Contact> getContactList();
+	
 }
