@@ -35,7 +35,7 @@
 	<input type="hidden" name="action" value="send">
 </form>
 
-<form id="selectContactForm" action="album" method="post">
+<form id="selectContactForm" action="" method="post">
     <input type="hidden" name="action" value="selectContact"/>
     <label for="selectedContact">Select contact:</label><br>
     <select id="selectedContact" name="selectedContact" size="1" onchange="selectAlbumForm.submit()">
@@ -49,7 +49,7 @@
     </select><br>
 </form>
 
-<form action="" method="post" enctype="multipart/form-data">
+<form action="kontakty" method="post">
     <input type="hidden" name="action" value="pridat"/><br>
     <h3>Vložit nový kontakt</h3>
     <label for="name">Jméno:</label><br>

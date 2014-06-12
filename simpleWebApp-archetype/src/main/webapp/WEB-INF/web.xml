@@ -15,6 +15,10 @@
     <servlet-name>MailServlet</servlet-name>
     <servlet-class>javaee.mail.MailServlet</servlet-class>
   </servlet>
+   <servlet-mapping>
+    <servlet-name>MailServlet</servlet-name>
+    <url-pattern>/kontakty</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>MailServlet</servlet-name>
     <url-pattern>/sendMail</url-pattern>

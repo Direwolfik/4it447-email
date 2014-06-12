@@ -46,7 +46,7 @@ public class MailServlet extends HttpServlet {
 	    protected void doPost(HttpServletRequest request,
 	                          HttpServletResponse response)
 	            throws ServletException, IOException {
-
+		 
 	        // Při HTTP metodě POST se očekává, že je v session
 	        // k dispozici e-mail bean.
 	        EmailBean emailBean = (EmailBean)
@@ -66,7 +66,8 @@ public class MailServlet extends HttpServlet {
 	                doStore(emailBean, request, response);
 	            } else if ("restore".equals(action)) {
 	                createEmailBean(request, response);
-	            }else if("pridat".equals(action)) {
+	            } else if("pridat".equals(action)) {
+	            	
 	            	doAddContact(emailBean,request,response);
 	            }else {
 	                throw new ServletException("No action specified");
@@ -105,9 +106,13 @@ public class MailServlet extends HttpServlet {
 		response.sendRedirect("sent.jsp");
 	}
 	private void doAddContact(EmailBean emailBean, HttpServletRequest request,
-			HttpServletResponse response){
-		emailBean.getContactsDAO().addContact(request.getParameter("name"),
-				request.getParameter("email"), request.getParameter("owner"));
+			HttpServletResponse response) throws IOException{
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		String owner = request.getParameter("owner");
+		
+		contactsDAO.addContact(name,email, owner);
+		response.sendRedirect("mailForm.jsp");
 	}
 	
 	private void doStore(EmailBean emailBean, HttpServletRequest request,
