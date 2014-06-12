@@ -40,6 +40,12 @@ public class ContactsDAOBean implements ContactsDAO {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public List<Contact> getContactList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }
