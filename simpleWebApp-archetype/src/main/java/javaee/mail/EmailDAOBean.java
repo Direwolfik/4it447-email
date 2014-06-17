@@ -51,7 +51,7 @@ public class EmailDAOBean implements EmailDAO {
 
 	@Override
 	public List<EmailBean> getEmails() {
-		Query query = entityManager.createQuery("select e from EmailBean e where owner like "+);
+		Query query = entityManager.createQuery("select e from EmailBean e");
 		System.out.println("kentus hovno mrdka "+query.toString());
         return query.getResultList();
 	}

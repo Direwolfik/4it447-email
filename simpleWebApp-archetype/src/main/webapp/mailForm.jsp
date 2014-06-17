@@ -9,7 +9,10 @@
              scope="session"/>
 <jsp:useBean id="emailDAO"
              class="javaee.mail.EmailDAO"
-             scope="application"/>           
+             scope="application"/>    
+<jsp:useBean id="contactsDAO"
+             class="javaee.mail.ContactsDAO"
+             scope="application"/>         
 
 <h1>Formulář pro email</h1>
 <h2>Uživatel: ${emailBean.owner}</h2>
@@ -49,8 +52,15 @@
 <form id="selectContactForm" action="" method="post">
     <input type="hidden" name="action" value="selectContact"/>
     <label for="selectedContact">Select contact:</label><br>
+    	
     <select id="selectedContact" name="selectedContact" size="1" onchange="selectAlbumForm.submit()">
-
+<c:forEach items="${contactsDAO.contacts}" var="contact">
+           
+                
+                    <option value="${contact.email}">${contact.name} - ${contact.email}</option>
+               
+           
+        </c:forEach>
     </select><br>
 </form>
 
