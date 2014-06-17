@@ -21,28 +21,38 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>MailServlet</servlet-name>
-    <url-pattern>/sendMail</url-pattern>
+    <url-pattern>/</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>mailForm.jsp</welcome-file>
   </welcome-file-list>
-  <filter>
-    <filter-name>FrontControllerFilter</filter-name>
-    <filter-class>
-            javaee.mail.FrontControllerFilter
-        </filter-class>
-    <async-supported>true</async-supported>
-  </filter>
-  <filter-mapping>
-    <filter-name>FrontControllerFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-  <listener>
-    <description>
-            Nastavuje uživatele do email beanu.
-        </description>
-    <listener-class>
-            javaee.mail.UserSetterForEmailBean
-        </listener-class>
-  </listener>
+
+  
+      <security-constraint>
+        <display-name>Login</display-name>
+        <web-resource-collection>
+            <web-resource-name>All</web-resource-name>
+            <description/>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>user</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <login-config>
+     <auth-method>FORM</auth-method>
+     <realm-name>mailRealm</realm-name>
+     <form-login-config>
+         <form-login-page>/login.jsp</form-login-page>
+         <form-error-page>/login-error.jsp</form-error-page>
+     </form-login-config>
+</login-config>
+
+
+    <security-role>
+     <role-name>user</role-name>
+</security-role>
+
 </web-app>

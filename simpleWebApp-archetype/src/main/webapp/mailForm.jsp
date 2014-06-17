@@ -17,10 +17,7 @@
 <h1>Formulář pro email</h1>
 <h2>Uživatel: ${emailBean.owner}</h2>
 <h2>Maily: ${emailDAO.emails}</h2>
-<form action="logout" method="post">
-    <input type="hidden" name="action" value="doLogout"/>
-    <input type="submit" value="Logout"/>
-</form>
+
 <form action="sendMail" method="post">
     <input type="hidden" name="action" value="store"/>
     <input type="submit" value="Store"/>
@@ -54,7 +51,7 @@
     <label for="selectedContact">Select contact:</label><br>
     	
     <select id="selectedContact" name="selectedContact" size="1" onchange="selectAlbumForm.submit()">
-<c:forEach items="${contactsDAO.contacts}" var="contact">
+<c:forEach items="${contacts}" var="contact">
            
                 
                     <option value="${contact.email}">${contact.name} - ${contact.email}</option>
@@ -73,6 +70,10 @@
     <input id="email" type="text" name="email"/><br>
     <input type="hidden" name="owner" value="${emailBean.owner}"/>
     <input type="submit" value="Přidat"/><br>
+</form>
+<form action="sendMail" method="post">
+     <input type="hidden" name="action" value="logout"/>
+     <input type="submit" value="Logout"/>
 </form>
 
 

@@ -4,11 +4,13 @@
 <body>
 <h1>Login</h1>
 
-<form action="login" method="post">
-    <label for="nick">Nickname:</label><br/>
-    <input id="nick" name="nick" type="text"/><br/>
-    <input name="action" type="hidden" value="doLogin"/><br/>
-    <input type="submit" value="Log in"/>
+<form action="j_security_check" method="post">
+    <label for="user">User:</label><br>
+    <input id="user" type="text" name="j_username"/><br>
+    <label for="psw">Password:</label><br>
+    <input id="psw" type="password" name="j_password"/><br>
+    <input type="submit" value="Enter"/>
 </form>
+
 </body>
 </html>

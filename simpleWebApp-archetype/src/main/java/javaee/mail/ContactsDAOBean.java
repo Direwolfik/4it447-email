@@ -21,8 +21,9 @@ public class ContactsDAOBean implements ContactsDAO {
 
 	@Override
 	public List<Contacts> getContactsByOwner(String owner) {
-		Query query = entityManager.createQuery("select c from Contacts c");
-        return query.getResultList();
+		Query q = entityManager.createQuery("select c from Contacts c where c.owner=:owner");
+        q.setParameter("owner", owner);
+        return q.getResultList();
 	}
 
 	@Override
@@ -31,7 +32,7 @@ public class ContactsDAOBean implements ContactsDAO {
 		contact.setName(name);
 		contact.setEmail(email);
 		contact.setOwner(owner);
-		System.out.println("kentus hovno mrdka"+contact.toString());
+		
         entityManager.persist(contact);
         entityManager.flush();
         entityManager.refresh(contact);

@@ -1,7 +1,9 @@
 package javaee.mail;
 
 import java.io.IOException;
+import java.util.List;
 
+import javax.ejb.EJB;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -15,7 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class FrontControllerFilter implements Filter{
-
+	 @EJB
+	 private ContactsDAO contactsDAO;
+	
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
@@ -56,6 +60,7 @@ public class FrontControllerFilter implements Filter{
 	                          FilterChain filterChain)
 	            throws IOException, ServletException {
 	        // Zkusíme najít cookie 'cookieNick'
+	    	System.out.println("noAction");
 	        Cookie cookie = findNickCookie(request);
 	        if (cookie != null) {
 	            // Cookie přišlo -> uživatel je přihlášen.
@@ -69,7 +74,7 @@ public class FrontControllerFilter implements Filter{
 	        	if (!nickName.equals(session.getAttribute("user"))) {
 	        		session.setAttribute("user", nickName);
 	        	}
-
+	        	
 	            // Předáme řízení standardním způsobem
 	            filterChain.doFilter(request, response);
 	        } else {
@@ -87,6 +92,7 @@ public class FrontControllerFilter implements Filter{
                           HttpServletResponse response)
             throws ServletException, IOException {
         // Zkusíme najít cookie, které chceme smazat
+    	System.out.println("doLogout");
         Cookie cookie = findNickCookie(request);
         if (cookie != null) {
             // Nastavení maxAge na 0 vede ke smazání cookie 
@@ -133,6 +139,7 @@ public class FrontControllerFilter implements Filter{
                          HttpServletResponse response)
             throws IOException, ServletException {
         // login.jsp předává parametr nick
+    	System.out.println("doLogin");
         String nickname = request.getParameter("nick");
         if ("".equals(nickname)) {
             forwardToLogin(request, response);
@@ -148,8 +155,10 @@ public class FrontControllerFilter implements Filter{
         // do zavření prohlížeče.
         cookie.setMaxAge(-1);
         response.addCookie(cookie);
-
+        
+       
         // Přesměrujeme aktuální dotaz na emailový formulář
+        System.out.println("redirect to MailForm.jsp");
         response.sendRedirect("mailForm.jsp");
     }
 

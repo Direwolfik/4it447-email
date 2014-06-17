@@ -1,6 +1,7 @@
 package javaee.mail;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -43,13 +44,14 @@ public class MailServlet extends HttpServlet {
 	    protected void doPost(HttpServletRequest request,
 	                          HttpServletResponse response)
 	            throws ServletException, IOException {
-		 
+		 	System.out.println("doPost");
+		 	
 	        // Při HTTP metodě POST se očekává, že je v session
 	        // k dispozici e-mail bean.
 	        EmailBean emailBean = (EmailBean)
 	                request.getSession().getAttribute("emailBean");
 	        if (emailBean == null) {
-	            throw new ServletException("No email session");
+	        	createEmailBean(request, response);
 	        }
 
 	        try {
@@ -66,8 +68,10 @@ public class MailServlet extends HttpServlet {
 	            } else if("pridat".equals(action)) {
 	            	
 	            	doAddContact(emailBean,request,response);
-	            }else {
-	                throw new ServletException("No action specified");
+	            } else if ("logout".equals(action)) {
+	                doLogout(request, response);
+	            } else {
+	                
 	            }
 
 	        } catch (MessagingException e) {
@@ -111,6 +115,11 @@ public class MailServlet extends HttpServlet {
 		
 		
 		contactsDAO.addContact(name,email, owner);
+		
+		List<Contacts> contacts = contactsDAO.getContactsByOwner(emailBean.getOwner());
+		request.getSession().setAttribute("contacts", contacts);
+		System.out.println("yolo"+contacts);
+		
 		response.sendRedirect("mailForm.jsp");
 	}
 	
@@ -128,21 +137,30 @@ public class MailServlet extends HttpServlet {
 		emailDAO.addEmail(to, copy, subject, body, owner);
 	}
 
+	 private void doLogout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		 request.getSession().setAttribute("emailBean", null);
+		 System.out.println("bla "+request.getSession().getAttribute("emailBean"));
+		 request.getSession().invalidate();
+         response.sendRedirect("");
+}
 
 
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
+		System.out.println("doGet Servlet");
+		 
 		// Lazy inicializace email beanu
 		EmailBean emailBean = (EmailBean) request.getSession().getAttribute(
 				"emailBean");
+		
 		if (emailBean == null) {
 			// email bean není v session, vytvoříme jej tedy
 			createEmailBean(request, response);
 		} else {
 			// Pokud je email bean v session, přesměrováváme
 			// na emailForm.jsp.
+			
 			response.sendRedirect("mailForm.jsp");
 		}
 	}
@@ -152,10 +170,17 @@ public class MailServlet extends HttpServlet {
 	 */
 	private void createEmailBean(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-
+		System.out.println("create Email Bean");
+		String nick = request.getUserPrincipal().getName();
+		
 		EmailBean emailBean = new EmailBean();
+		emailBean.setOwner(nick);
 		request.getSession().setAttribute("emailBean", emailBean);
-
+		
+		System.out.println("createEmailBean nick: "+nick);
+		List<Contacts> contacts = contactsDAO.getContactsByOwner(nick);
+		request.getSession().setAttribute("contacts", contacts);
+		System.out.println("createEmailBean "+contacts);
 		// Atribut 'user' v dotazu nastavuje
 		// autentizační filtr (FrontControllerFilter)
 //		String user = (String) request.getAttribute("user");
