@@ -1,50 +1,42 @@
 package javaee.mail;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintStream;
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.ejb.EJB;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
+@Entity
 public class EmailBean implements Serializable {
 
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String to;
+	private int id;
+	private String recipient;
 	private String copy;
     private String subject;
     private String body;
-    private String user;
-    private int time;
-    
-    @EJB
-    private ContactsDAO contactsDAO;
+    private String owner;
 
-  
-    public String getUser() {
-        return user;
+    @Id
+	 @GeneratedValue
+	 public int getId() {
+	        return id;
+	 }
+
+	    public void setId(int id) {
+	        this.id = id;
+	    }
+	    
+    public String getOwner() {
+        return owner;
     }
 
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public String getTo() {
-        return to;
-    }
-
-    public void setTo(String to) {
-        this.to = to;
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 
     public String getSubject() {
@@ -63,63 +55,6 @@ public class EmailBean implements Serializable {
         this.body = message;
     }
 
-    
-    public ContactsDAO getContactsDAO() {
-		return contactsDAO;
-	}
-	/**
-     * Schválně předáváme mail session jako parametr. Kdybychom měli
-     * session uloženu jako hodnotu atributu, musel by kvůli
-     * serializovatelnosti být tento atribut transientní. Při aktivaci
-     * během migrace by tak bylo komplikované získat session zpět.
-     * @param mailSession
-     * @throws MessagingException
-     * @throws IOException 
-     */
-    public void store(Session mailSession) throws MessagingException, IOException {
-    	String subject = getSubject();
-    	String message = getBody();
-    	String to = getTo();
-    	PrintStream fileStream = new PrintStream(new File("D:/Applications/eclipse EE/file.txt"));
-    	fileStream.println(to);
-    	fileStream.println(subject);
-    	fileStream.println(message);
-    	fileStream.close();
- 	
-    }
-    
-    public void restore(Session mailSession) throws MessagingException {
-    	
-    }
-
-    public void send(Session mailSession) throws MessagingException {
-        // Vytvoříme objekt zprávy
-        Message message = new MimeMessage(mailSession);
-
-        // Zatím nenastavujeme From, použije se default
-        // z konfigurace serveru
-        //message.setFrom();
-        message.setRecipients(Message.RecipientType.TO,
-                InternetAddress.parse(to, false));
-
-        // Nastavíme předmět
-        message.setSubject(subject);
-
-        // Vložíme text zprávy
-        message.setText(body);
-        
-       // Nastavíme hlavičku indikující mailového klienta
-        message.setHeader("X-Mailer", "My Mailer");
-
-        // Nastavíme datum odeslání
-        Date timeStamp = new Date();
-        message.setSentDate(timeStamp);
-
-
-        // Odešleme zprávu
-        Transport.send(message);
-    }
-
 	public String getCopy() {
 		return copy;
 	}
@@ -128,12 +63,12 @@ public class EmailBean implements Serializable {
 		this.copy = copy;
 	}
 
-	public int getTime() {
-		return time;
+	public String getRecipient() {
+		return recipient;
 	}
 
-	public void setTime(int time) {
-		this.time = time;
+	public void setRecipient(String recipient) {
+		this.recipient = recipient;
 	}
 }
 

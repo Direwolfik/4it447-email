@@ -24,7 +24,7 @@ public class UserSetterForEmailBean
 
     private void adjustUser(HttpSessionBindingEvent event, EmailBean emailBean) {
         String user = (String)event.getSession().getAttribute("user");
-        emailBean.setUser(user);
+        emailBean.setOwner(user);
     }
 
     public void attributeReplaced(HttpSessionBindingEvent event) {

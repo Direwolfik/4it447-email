@@ -6,8 +6,9 @@
              class="javaee.mail.EmailBean"
              scope="session"/>
 <h1>E-mail odeslán</h1>
-<p>Uživatel: ${emailBean.user}</p>
-<p>Komu: ${emailBean.to}</p>
+<p>Uživatel: ${emailBean.owner}</p>
+<p>Komu: ${emailBean.recipient}</p>
+<p>Kopie: ${emailBean.copy}</p>
 <p>Předmět: ${emailBean.subject}</p>
 <p>Zpráva: ${emailBean.body}</p>
 <form action="sendMail" method="post">

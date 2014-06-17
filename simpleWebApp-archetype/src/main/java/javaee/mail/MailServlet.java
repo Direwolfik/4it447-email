@@ -27,6 +27,8 @@ public class MailServlet extends HttpServlet {
 
 	  @EJB
 	   private ContactsDAO contactsDAO;
+	  @EJB
+	   private EmailDAO emailDAO;
 	  @Resource(name = "mail/myMailSession")
 		private Session mailSession;
 
@@ -88,16 +90,15 @@ public class MailServlet extends HttpServlet {
 		int time = Integer.parseInt(request.getParameter("time"));
 
 		// Nastavíme vlastnosti e-mail beanu
-		emailBean.setTo(to);
+		emailBean.setRecipient(to);
 		emailBean.setCopy(copy);
 		emailBean.setSubject(subject);
 		emailBean.setBody(message);
-		emailBean.setTime(time);
 
 		// odešleme email
 		//emailBean.send(mailSession);
 		sender.sendToJMS(to,copy,subject,message,time);
-
+		doStore(emailBean, request, response);
 		// přesměrujeme na resumé
 		response.sendRedirect("sent.jsp");
 	}
@@ -106,6 +107,7 @@ public class MailServlet extends HttpServlet {
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		String owner = request.getParameter("owner");
+		
 		
 		contactsDAO.addContact(name,email, owner);
 		response.sendRedirect("mailForm.jsp");
@@ -118,18 +120,11 @@ public class MailServlet extends HttpServlet {
 		// Přečteme si parametry z formuláře
 		String to = request.getParameter("to");
 		String subject = request.getParameter("subject");
-		String message = request.getParameter("message");
+		String body = request.getParameter("message");
+		String copy = request.getParameter("copy");
+		String owner = request.getParameter("owner");
 
-		// Nastavíme vlastnosti e-mail beanu
-		emailBean.setTo(to);
-		emailBean.setSubject(subject);
-		emailBean.setBody(message);
-
-		// odešleme email
-		//emailBean.store(mailSession);
-
-		// přesměrujeme na resumé
-		//response.sendRedirect("sent.jsp");
+		emailDAO.addEmail(to, copy, subject, body, owner);
 	}
 
 
