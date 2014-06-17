@@ -36,6 +36,7 @@ public class MailServlet extends HttpServlet {
 	    public void init(ServletConfig servletConfig) throws ServletException {
 	        // Zpřístupníme albumDAO JSP stránkám přes kontext aplikace
 	        servletConfig.getServletContext().setAttribute("contactsDAO", contactsDAO);
+	        servletConfig.getServletContext().setAttribute("emailDAO", emailDAO);
 	    }
 
 	 @Override

@@ -7,10 +7,13 @@
 <jsp:useBean id="emailBean"
              class="javaee.mail.EmailBean"
              scope="session"/>
+<jsp:useBean id="emailDAO"
+             class="javaee.mail.EmailDAO"
+             scope="application"/>           
 
 <h1>Formulář pro email</h1>
 <h2>Uživatel: ${emailBean.owner}</h2>
-
+<h2>Maily: ${emailDAO.emails}</h2>
 <form action="logout" method="post">
     <input type="hidden" name="action" value="doLogout"/>
     <input type="submit" value="Logout"/>
