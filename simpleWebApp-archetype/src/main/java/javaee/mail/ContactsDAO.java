@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * DAO pro kontakty v seznamu kontaktů jednotlivých uživatelů.
  * 
- * @author Josef Novotný
+ * @author Jakub Kolář, Josef Novotný
  * @since 1.0
  */
 public interface ContactsDAO {

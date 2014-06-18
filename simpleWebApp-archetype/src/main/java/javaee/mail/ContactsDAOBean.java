@@ -12,7 +12,7 @@ import javax.persistence.Query;
 /**
  * Bean implementující rozhraní ContactsDAO umožnující práci s kontakty.
  * 
- * @author Josef Novotný
+ * @author Jakub Kolář, Josef Novotný
  * @since 1.0
  * 
  */
