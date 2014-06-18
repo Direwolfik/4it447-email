@@ -1,3 +1,4 @@
+package javaee.mail;
 import junit.framework.TestCase;
 
 
