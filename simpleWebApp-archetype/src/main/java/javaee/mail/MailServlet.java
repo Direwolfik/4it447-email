@@ -145,6 +145,7 @@ public class MailServlet extends HttpServlet {
 		String owner = request.getParameter("owner");
 
 		emailDAO.addEmail(to, copy, subject, body, owner);
+		refreshEmails(request);
 	}
 
 	 private void doLogout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -189,6 +190,7 @@ public class MailServlet extends HttpServlet {
 		
 		System.out.println("createEmailBean nick: "+nick);
 		refreshContacts(request);
+		refreshEmails(request);
 		// Atribut 'user' v dotazu nastavuje
 		// autentizační filtr (FrontControllerFilter)
 //		String user = (String) request.getAttribute("user");
@@ -202,6 +204,12 @@ public class MailServlet extends HttpServlet {
 		String owner = request.getUserPrincipal().getName();
 		List<Contacts> contacts = contactsDAO.getContactsByOwner(owner);
 		request.getSession().setAttribute("contacts", contacts);
+	};
+	
+	private void refreshEmails(HttpServletRequest request){
+		String owner = request.getUserPrincipal().getName();
+		List<EmailBean> emails = emailDAO.getEmailsByOwner(owner);
+		request.getSession().setAttribute("emails", emails);
 	};
 	
 
