@@ -85,8 +85,21 @@
       <input type="submit" value="Smazat"/>
       <button type="button" onclick="addContact(); return false;">Přidat "komu"</button>
       <button type="button" onclick="addCopy(); return false;">Přidat "kopie"</button>
+      <button type="button" onclick="editContact(); return false;">Editovat</button>
 </form>
-
+<div id="edit_div" style="display: none">
+<form>
+	<input type="hidden" name="action" value="editContact"/><br>
+    <h3>Editovat stávající kontakt</h3>
+    <label for="name">Jméno:</label><br>
+    <input id="name_edit" type="text" name="name"/><br>
+    <label for="email">Email:</label><br>
+    <input id="email_edit" type="text" name="email"/><br>
+    <input type="hidden" name="owner" value="${emailBean.owner}"/>
+    <input id="id_edit" type="hidden" name="id" value=""/><br>
+    <input type="submit" value="Upravit"/><br>
+</form>
+</div>
 <form action="kontakty" method="post">
     <input type="hidden" name="action" value="pridat"/><br>
     <h3>Vložit nový kontakt</h3>
@@ -115,6 +128,28 @@ function addCopy() {
 	var res = strContact.split(" - "); 
 	var elem = document.getElementById("copy");
 	elem.value = elem.value+res[1]+", ";
+	}
+function editContact() {
+	var e = document.getElementById("selectedContact");
+	var id = e.options[e.selectedIndex].value;
+	
+	var elem = document.getElementById("selectedContact");
+	var strContact = elem.options[e.selectedIndex].text;
+	var res = strContact.split(" - "); 
+	var name = res[0];
+	var email = res[1];
+
+	var elemName = document.getElementById("name_edit");
+	var elemEmail = document.getElementById("email_edit");
+	var elemId = document.getElementById("id_edit");
+
+	elemName.value = name;
+	elemEmail.value = email;
+	elemId.value = id;
+
+	document.getElementById("edit_div").style.display = 'block';
+
+	
 	}
 </script>
 <script>
