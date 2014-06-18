@@ -47,8 +47,7 @@
 						class="form-control" id="subject" name="subject" type="text" /><br />
 					<label for="message">Zpráva:</label><br />
 					<textarea class="form-control" id="message" name="message"
-						rows="20" cols="20">
-    </textarea>
+						rows="20" cols="20"></textarea>
 					<br /> <input type="hidden" name="owner" value="${email.owner}" />
 					<input class="btn btn-info form-control" type="submit"
 						value="Odeslat" /> <input type="hidden" name="action"
