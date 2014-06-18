@@ -21,12 +21,16 @@
 			<div class="col-xs-6">
 				<h2>Uživatel: ${email.owner}</h2>
 				<form action="sendMail" method="post">
-					<label for="to">Komu:</label><br /> <input class="form-control"
-						id="to" name="to" type="select" /><br /> <label for="to">Kopie:</label><br />
-					<input class="form-control" id="copy" name="copy" type="select" /><br />
-					<label for="to">Skrytá kopie:</label><br /> <input
+					<label for="to">Komu:</label><br /> 
+					<div class="input-group">
+  <span class="input-group-addon">@</span><input class="form-control"
+						id="to" name="to" type="select" /></div><br /> <label for="to">Kopie:</label><br />
+					<div class="input-group">
+  <span class="input-group-addon">@</span><input class="form-control" id="copy" name="copy" type="select" /></div><br />
+					<label for="to">Skrytá kopie:</label><br /> <div class="input-group">
+  <span class="input-group-addon">@</span><input
 						class="form-control" id="hiddenCopy" name="hiddenCopy"
-						type="select" /><br /> <label for="to">Odeslat za:</label><br /> <select class="form-control" id="time" name="time"
+						type="select" /></div><br /> <label for="to">Odeslat za:</label><br /> <select class="form-control" id="time" name="time"
 						type="select" size="1">
 							<option value="0">Hned</option>
 							<option value="1">1.0 minutu</option>
@@ -90,8 +94,9 @@
 						<label>Editovat stávající kontakt:</label><br>
 						<label for="name">Jméno:</label><br> <input
 							class="form-control" id="name_edit" type="text" name="name" /><br>
-						<label for="email">Email:</label><br> <input
-							class="form-control" id="email_edit" type="text" name="email" /><br>
+						<label for="email">Email:</label><br> <div class="input-group">
+  <span class="input-group-addon">@</span><input
+							class="form-control" id="email_edit" type="text" name="email" /></div><br>
 						<input type="hidden" name="owner" value="${email.owner}" /> <input
 							id="id_edit" type="hidden" name="id" value="" /><input
 							class="btn btn-success form-control" type="submit"
@@ -104,8 +109,9 @@
 					<label>Vložit nový kontakt:</label><br>
 					<label for="name">Jméno:</label><br> <input
 						class="form-control" id="name" type="text" name="name" /><br>
-					<label for="email">Email:</label><br> <input
-						class="form-control" id="email" type="text" name="email" /><br>
+					<label for="email">Email:</label><br> <div class="input-group">
+  <span class="input-group-addon">@</span><input
+						class="form-control" id="email" type="text" name="email" /></div><br>
 					<input type="hidden" name="owner" value="${email.owner}" /> <input
 						class="btn btn-success form-control" type="submit" value="Přidat" /><br>
 				</form>
