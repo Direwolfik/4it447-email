@@ -42,15 +42,19 @@
 	<input type="hidden" name="action" value="send">
 </form>
 
-<form id="selectContactForm" action="" method="post">
-    <input type="hidden" name="action" value="selectContact"/>
+<form id="selectContactForm" action="kontakty" method="post">
+  
     <label for="selectedContact">Select contact:</label><br>
     	
     <select id="selectedContact" name="selectedContact" size="1" onchange="selectAlbumForm.submit()">
 <c:forEach items="${contacts}" var="contact">
-                    <option value="${contact.email}">${contact.name} - ${contact.email}</option>
+                    <option value="${contact.id}">${contact.name} - ${contact.email}</option>
         </c:forEach>
     </select><br>
+     <input type="hidden" name="action" value="deleteContact"/><br>
+      <input type="submit" value="Smazat"/>
+      <button type="button" onclick="addContact(); return false;">Přidat "komu"</button>
+      <button type="button" onclick="addCopy(); return false;">Přidat "kopie"</button>
 </form>
 
 <form action="kontakty" method="post">
@@ -67,7 +71,23 @@
      <input type="hidden" name="action" value="logout"/>
      <input type="submit" value="Logout"/>
 </form>
-
+<script>
+function addContact() {
+	var e = document.getElementById("selectedContact");
+	var strContact = e.options[e.selectedIndex].text;
+	var res = strContact.split(" - "); 
+	var elem = document.getElementById("to");
+	elem.value = elem.value+res[1]+", ";
+	}
+function addCopy() {
+	var e = document.getElementById("selectedContact");
+	var strContact = e.options[e.selectedIndex].text;
+	var res = strContact.split(" - "); 
+	var elem = document.getElementById("copy");
+	elem.value = elem.value+res[1]+", ";
+	}
+</script>
 
 </body>
+
 </html>

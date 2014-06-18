@@ -65,6 +65,15 @@ public class ContactsDAOBean implements ContactsDAO {
 		System.out.println("kentus hovno mrdka"+query.toString());
         return query.getResultList();
 	}
+
+	@Override
+	public void removeContact(String contactID) {
+		int i = Integer.parseInt(contactID);
+		Query query = entityManager.createQuery("delete from Contacts c where c.id=:id");
+		query.setParameter("id", i);
+        query.executeUpdate();
+		
+	}
 	}
 
 

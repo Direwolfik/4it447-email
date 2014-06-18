@@ -70,8 +70,8 @@ public class MailServlet extends HttpServlet {
 	            	doAddContact(emailBean,request,response);
 	            } else if ("logout".equals(action)) {
 	                doLogout(request, response);
-	            } else {
-	                
+	            } else if ("deleteContact".equals(action)) {
+	                doRemoveContact(request, response);
 	            }
 
 	        } catch (MessagingException e) {
@@ -79,6 +79,17 @@ public class MailServlet extends HttpServlet {
 	        }
 	    }
 
+
+	private void doRemoveContact(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		String selectedContact = request.getParameter("selectedContact");
+		System.out.println("attempting to remove "+selectedContact);
+        contactsDAO.removeContact(selectedContact);
+        
+        refreshContacts(request);
+        response.sendRedirect("mailForm.jsp");
+		
+	}
 
 	/**
 	 * Akce, která odesílá email voláním business metody na email beanu.
@@ -116,9 +127,8 @@ public class MailServlet extends HttpServlet {
 		
 		contactsDAO.addContact(name,email, owner);
 		
-		List<Contacts> contacts = contactsDAO.getContactsByOwner(emailBean.getOwner());
-		request.getSession().setAttribute("contacts", contacts);
-		System.out.println("yolo"+contacts);
+		refreshContacts(request);
+		
 		
 		response.sendRedirect("mailForm.jsp");
 	}
@@ -178,11 +188,7 @@ public class MailServlet extends HttpServlet {
 		request.getSession().setAttribute("emailBean", emailBean);
 		
 		System.out.println("createEmailBean nick: "+nick);
-		List<Contacts> contacts = contactsDAO.getContactsByOwner(nick);
-		request.getSession().setAttribute("contacts", contacts);
-		List<EmailBean> emails = emailDAO.getEmailsByOwner(nick);
-		request.getSession().setAttribute("emails", emails);
-		System.out.println("createEmailBean "+contacts);
+		refreshContacts(request);
 		// Atribut 'user' v dotazu nastavuje
 		// autentizační filtr (FrontControllerFilter)
 //		String user = (String) request.getAttribute("user");
@@ -192,6 +198,11 @@ public class MailServlet extends HttpServlet {
 		response.sendRedirect("mailForm.jsp");
 	}
 	
+	private void refreshContacts(HttpServletRequest request){
+		String owner = request.getUserPrincipal().getName();
+		List<Contacts> contacts = contactsDAO.getContactsByOwner(owner);
+		request.getSession().setAttribute("contacts", contacts);
+	};
 	
 
 }
