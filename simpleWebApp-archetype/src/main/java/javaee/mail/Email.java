@@ -1,6 +1,8 @@
 package javaee.mail;
 
 import java.io.Serializable;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,11 +20,17 @@ public class Email implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue
 	private int id;
+	@Column(length = 500)
 	private String recipient;
+	@Column(length = 500)
 	private String copy;
+	@Column(length = 500)
 	private String hiddenCopy;
 	private String subject;
+	@Column(length = 5000)
 	private String body;
 	private String owner;
 
@@ -31,8 +39,7 @@ public class Email implements Serializable {
 	 * 
 	 * @return ID emailu
 	 */
-	@Id
-	@GeneratedValue
+	
 	public int getId() {
 		return id;
 	}
