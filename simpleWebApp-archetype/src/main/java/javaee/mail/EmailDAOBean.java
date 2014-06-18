@@ -9,6 +9,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
+ * Bean implementující rozhraní EmailDAO umožnující práci s emaily.
+ * 
  * @author Jakub Kolář, Josef Novotný
  * @since 1.0
  */
@@ -62,7 +64,6 @@ public class EmailDAOBean implements EmailDAO {
 	@Override
 	public List<Email> getEmails() {
 		Query query = entityManager.createQuery("select e from EmailBean e");
-
 		return query.getResultList();
 	}
 }

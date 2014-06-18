@@ -1,6 +1,5 @@
 package javaee.mail;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -22,6 +21,7 @@ public class ContactsDAOBean implements ContactsDAO {
 	@PersistenceContext(unitName = "mail")
 	private EntityManager entityManager;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Contacts> getContactsByOwner(String owner) {
 		Query q = entityManager
@@ -73,10 +73,10 @@ public class ContactsDAOBean implements ContactsDAO {
 		return sb.toString();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Contacts> getContacts() {
 		Query query = entityManager.createQuery("select c from Contacts c");
-		System.out.println("kentus hovno mrdka" + query.toString());
 		return query.getResultList();
 	}
 

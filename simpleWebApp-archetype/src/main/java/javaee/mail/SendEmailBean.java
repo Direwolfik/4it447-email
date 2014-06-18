@@ -86,6 +86,7 @@ public class SendEmailBean implements MessageListener {
 	 * 
 	 * @see MessageListener#onMessage(Message)
 	 */
+	@Override
 	public void onMessage(Message message) {
 		try {
 			String to = message.getStringProperty("to");

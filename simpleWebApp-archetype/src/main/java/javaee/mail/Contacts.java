@@ -1,14 +1,9 @@
 package javaee.mail;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 /**
  * Třída reprezentující entitu kontaktu.
@@ -19,6 +14,10 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class Contacts implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1122255155975771875L;
 	private int id;
 	private String name;
 	private String email;
