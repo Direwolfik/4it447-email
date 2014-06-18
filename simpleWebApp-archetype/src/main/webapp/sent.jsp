@@ -3,7 +3,7 @@
 <head><title>E-mail odeslán</title></head>
 <body>
 <jsp:useBean id="emailBean"
-             class="javaee.mail.EmailBean"
+             class="javaee.mail.Email"
              scope="session"/>
 <h1>E-mail bude odeslán za vámi zvolený čas</h1>
 <p>Uživatel: ${emailBean.owner}</p>

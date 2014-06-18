@@ -8,26 +8,35 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-
-
-
-
+/**
+ * @author Jakub Kolář
+ *
+ */
 @Stateless
 @Local(EmailDAO.class)
 public class EmailDAOBean implements EmailDAO {
 	@PersistenceContext(unitName = "mail")
-    private EntityManager entityManager;
+	private EntityManager entityManager;
 
+	/* (non-Javadoc)
+	 * @see javaee.mail.EmailDAO#getEmailsByOwner(java.lang.String)
+	 */
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<EmailBean> getEmailsByOwner(String owner) {
-		Query query = entityManager.createQuery("select e from EmailBean e where e.owner=:owner");
+	public List<Email> getEmailsByOwner(String owner) {
+		Query query = entityManager
+				.createQuery("select e from EmailBean e where e.owner=:owner");
 		query.setParameter("owner", owner);
-        return query.getResultList();
+		return query.getResultList();
 	}
 
+	/* (non-Javadoc)
+	 * @see javaee.mail.EmailDAO#addEmail(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+	 */
 	@Override
-	public void addEmail(String to, String copy, String hiddenCopy, String subject, String body, String owner) {
-		EmailBean mail = new EmailBean();
+	public void addEmail(String to, String copy, String hiddenCopy,
+			String subject, String body, String owner) {
+		Email mail = new Email();
 		mail.setRecipient(to);
 		mail.setCopy(copy);
 		mail.setHiddenCopy(hiddenCopy);
@@ -35,35 +44,18 @@ public class EmailDAOBean implements EmailDAO {
 		mail.setBody(body);
 		mail.setOwner(owner);
 		System.out.println("Ukládám email");
-        entityManager.persist(mail);
-        entityManager.flush();
+		entityManager.persist(mail);
+		entityManager.flush();
 	}
-	
-	private String createDelimitedSequence(int[] selectedIds) {
-        StringBuilder sb = new StringBuilder();
-        for (int j = 0; j < selectedIds.length; j++) {
-            int selectedId = selectedIds[j];
-            if (j > 0) {
-                sb.append(',');
-            }
-            sb.append(selectedId);
-        }
-        return sb.toString();
-    }
 
+	/* (non-Javadoc)
+	 * @see javaee.mail.EmailDAO#getEmails()
+	 */
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<EmailBean> getEmails() {
+	public List<Email> getEmails() {
 		Query query = entityManager.createQuery("select e from EmailBean e");
-		
-        return query.getResultList();
+
+		return query.getResultList();
 	}
 }
-
-
-
-
-
-
-	
-
-

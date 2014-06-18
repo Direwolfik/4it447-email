@@ -48,7 +48,7 @@ public class MailServlet extends HttpServlet {
 		 	
 	        // Při HTTP metodě POST se očekává, že je v session
 	        // k dispozici e-mail bean.
-	        EmailBean emailBean = (EmailBean)
+	        Email emailBean = (Email)
 	                request.getSession().getAttribute("emailBean");
 	        if (emailBean == null) {
 	        	createEmailBean(request, response);
@@ -109,7 +109,7 @@ public class MailServlet extends HttpServlet {
 	/**
 	 * Akce, která odesílá email voláním business metody na email beanu.
 	 */
-	private void doSend(EmailBean emailBean, HttpServletRequest request,
+	private void doSend(Email emailBean, HttpServletRequest request,
 			HttpServletResponse response) throws IOException,
 			MessagingException, ServletException {
 
@@ -137,7 +137,7 @@ public class MailServlet extends HttpServlet {
 		// přesměrujeme na resumé
 		response.sendRedirect("sent.jsp");
 	}
-	private void doAddContact(EmailBean emailBean, HttpServletRequest request,
+	private void doAddContact(Email emailBean, HttpServletRequest request,
 			HttpServletResponse response) throws IOException{
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
@@ -152,7 +152,7 @@ public class MailServlet extends HttpServlet {
 		response.sendRedirect("mailForm.jsp");
 	}
 	
-	private void doStore(EmailBean emailBean, HttpServletRequest request,
+	private void doStore(Email emailBean, HttpServletRequest request,
 			HttpServletResponse response) throws IOException,
 			MessagingException, ServletException {
 
@@ -182,7 +182,7 @@ public class MailServlet extends HttpServlet {
 		System.out.println("doGet Servlet");
 		 
 		// Lazy inicializace email beanu
-		EmailBean emailBean = (EmailBean) request.getSession().getAttribute(
+		Email emailBean = (Email) request.getSession().getAttribute(
 				"emailBean");
 		
 		if (emailBean == null) {
@@ -204,7 +204,7 @@ public class MailServlet extends HttpServlet {
 		System.out.println("create Email Bean");
 		String nick = request.getUserPrincipal().getName();
 		
-		EmailBean emailBean = new EmailBean();
+		Email emailBean = new Email();
 		emailBean.setOwner(nick);
 		request.getSession().setAttribute("emailBean", emailBean);
 		
@@ -228,7 +228,7 @@ public class MailServlet extends HttpServlet {
 	
 	private void refreshEmails(HttpServletRequest request){
 		String owner = request.getUserPrincipal().getName();
-		List<EmailBean> emails = emailDAO.getEmailsByOwner(owner);
+		List<Email> emails = emailDAO.getEmailsByOwner(owner);
 		request.getSession().setAttribute("emails", emails);
 	};
 	

@@ -7,7 +7,7 @@
 </head>
 <body>
 <jsp:useBean id="emailBean"
-             class="javaee.mail.EmailBean"
+             class="javaee.mail.Email"
              scope="session"/>
 <jsp:useBean id="emailDAO"
              class="javaee.mail.EmailDAO"
