@@ -2,7 +2,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
-<head><title>E-mail formulář</title></head>
+<head>
+	<title>E-mail formulář</title>
+	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+</head>
 <body>
 <jsp:useBean id="emailBean"
              class="javaee.mail.EmailBean"
@@ -17,9 +20,36 @@
 <h1>Formulář pro email</h1>
 <h2>Uživatel: ${emailBean.owner}</h2>
 <h2>Maily:</h2>
-<c:forEach items="${emails}" var="email">
-	<p>${email.recipient}, ${email.copy}, ${email.subject}, ${email.body}</p>
-</c:forEach>
+<table id="maily">
+	<th>Komu:</th>
+	<th>Kopie:</th>
+	<th>Předmět:</th>
+	<th>Zpráva:</th>
+	
+	<tr>
+		<td>
+			<input type="text" id="filterTo" placeholder="Filtr komu..."/>
+		</td>
+		<td>
+			<input type="text" id="filterCopy" placeholder="Filtr kopie..."/>
+		</td>
+		<td>
+			<input type="text" id="filterSubject" placeholder="Filtr předmět..."/>
+		</td>
+		<td>
+			<input type="text" id="filterBody" placeholder="Filtr zpráva..."/>
+		</td>
+	</tr>
+	<c:forEach items="${emails}" var="email">
+		<tr>
+			<td class="to">${email.recipient}</td>
+			<td class="copy">${email.copy}</td>
+			<td class="subject">${email.subject}</td>
+			<td class="body">${email.body}</td>
+		</tr>
+	</c:forEach>
+</table>
+
 
 <form action="sendMail" method="post">
     <label for="to">Komu:</label><br/>
@@ -86,6 +116,32 @@ function addCopy() {
 	var elem = document.getElementById("copy");
 	elem.value = elem.value+res[1]+", ";
 	}
+</script>
+<script>
+$(function() {    
+    $('#filterTo').keyup(function() { 
+        $("#maily td.to:contains('" + $(this).val() + "')").parent().show();
+        $("#maily td.to:not(:contains('" + $(this).val() + "'))").parent().hide();
+    });    
+});
+$(function() {    
+    $('#filterCopy').keyup(function() { 
+        $("#maily td.copy:contains('" + $(this).val() + "')").parent().show();
+        $("#maily td.copy:not(:contains('" + $(this).val() + "'))").parent().hide();
+    });    
+});
+$(function() {    
+    $('#filterSubject').keyup(function() { 
+        $("#maily td.subject:contains('" + $(this).val() + "')").parent().show();
+        $("#maily td.subject:not(:contains('" + $(this).val() + "'))").parent().hide();
+    });    
+});
+$(function() {    
+    $('#filterBody').keyup(function() { 
+        $("#maily td.body:contains('" + $(this).val() + "')").parent().show();
+        $("#maily td.body:not(:contains('" + $(this).val() + "'))").parent().hide();
+    });    
+});
 </script>
 
 </body>
