@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="css/bootstrap.css">
 </head>
 <body>
-<jsp:useBean id="emailBean"
+<jsp:useBean id="email"
              class="javaee.mail.Email"
              scope="session"/>
 <jsp:useBean id="emailDAO"
@@ -18,7 +18,7 @@
              scope="application"/>         
 
 <h1>Formulář pro email</h1>
-<h2>Uživatel: ${emailBean.owner}</h2>
+<h2>Uživatel: ${email.owner}</h2>
 <h2>Maily:</h2>
 <table id="maily">
 	<th>Komu:</th>
@@ -74,7 +74,7 @@
     <label for="message">Zpráva:</label><br/>
     <textarea id="message" name="message" rows="20" cols="60">
     </textarea><br/>
-    <input type="hidden" name="owner" value="${emailBean.owner}"/>
+    <input type="hidden" name="owner" value="${email.owner}"/>
     <input type="submit" value="Odeslat"/>
 	<input type="hidden" name="action" value="send">
 </form>
@@ -103,7 +103,7 @@
     <input id="name_edit" type="text" name="name"/><br>
     <label for="email">Email:</label><br>
     <input id="email_edit" type="text" name="email"/><br>
-    <input type="hidden" name="owner" value="${emailBean.owner}"/>
+    <input type="hidden" name="owner" value="${email.owner}"/>
     <input id="id_edit" type="hidden" name="id" value=""/><br>
     <input type="submit" value="Upravit"/><br>
 </form>
@@ -115,7 +115,7 @@
     <input id="name" type="text" name="name"/><br>
     <label for="email">Email:</label><br>
     <input id="email" type="text" name="email"/><br>
-    <input type="hidden" name="owner" value="${emailBean.owner}"/>
+    <input type="hidden" name="owner" value="${email.owner}"/>
     <input type="submit" value="Přidat"/><br>
 </form>
 <form action="sendMail" method="post">
