@@ -29,7 +29,7 @@ public class EmailDAOBean implements EmailDAO {
 	@Override
 	public List<Email> getEmailsByOwner(String owner) {
 		Query query = entityManager
-				.createQuery("select e from EmailBean e where e.owner=:owner");
+				.createQuery("select e from Email e where e.owner=:owner");
 		query.setParameter("owner", owner);
 		return query.getResultList();
 	}
@@ -63,7 +63,7 @@ public class EmailDAOBean implements EmailDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Email> getEmails() {
-		Query query = entityManager.createQuery("select e from EmailBean e");
+		Query query = entityManager.createQuery("select e from Email e");
 		return query.getResultList();
 	}
 }
