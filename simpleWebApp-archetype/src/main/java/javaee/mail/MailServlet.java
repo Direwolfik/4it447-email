@@ -180,6 +180,8 @@ public class MailServlet extends HttpServlet {
 		System.out.println("createEmailBean nick: "+nick);
 		List<Contacts> contacts = contactsDAO.getContactsByOwner(nick);
 		request.getSession().setAttribute("contacts", contacts);
+		List<EmailBean> emails = emailDAO.getEmailsByOwner(nick);
+		request.getSession().setAttribute("emails", emails);
 		System.out.println("createEmailBean "+contacts);
 		// Atribut 'user' v dotazu nastavuje
 		// autentizační filtr (FrontControllerFilter)

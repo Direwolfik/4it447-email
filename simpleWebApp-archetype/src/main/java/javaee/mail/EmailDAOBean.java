@@ -20,7 +20,8 @@ public class EmailDAOBean implements EmailDAO {
 
 	@Override
 	public List<EmailBean> getEmailsByOwner(String owner) {
-		Query query = entityManager.createQuery("select e from EmailBean e");
+		Query query = entityManager.createQuery("select e from EmailBean e where e.owner=:owner");
+		query.setParameter("owner", owner);
         return query.getResultList();
 	}
 

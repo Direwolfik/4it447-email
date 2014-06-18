@@ -16,16 +16,11 @@
 
 <h1>Formulář pro email</h1>
 <h2>Uživatel: ${emailBean.owner}</h2>
-<h2>Maily: ${emailDAO.emails}</h2>
+<h2>Maily:</h2>
+<c:forEach items="${emails}" var="email">
+	<p>${email.recipient}, ${email.copy}, ${email.subject}, ${email.body}</p>
+</c:forEach>
 
-<form action="sendMail" method="post">
-    <input type="hidden" name="action" value="store"/>
-    <input type="submit" value="Store"/>
-</form>
-<form action="sendMail" method="post">
-    <input type="hidden" name="action" value="restore"/>
-    <input type="submit" value="Restore"/>
-</form>
 <form action="sendMail" method="post">
     <label for="to">Komu:</label><br/>
     <input id="to" name="to" type="select"/><br/>
@@ -42,6 +37,7 @@
     <label for="message">Zpráva:</label><br/>
     <textarea id="message" name="message" rows="20" cols="60">
     </textarea><br/>
+    <input type="hidden" name="owner" value="${emailBean.owner}"/>
     <input type="submit" value="Odeslat"/>
 	<input type="hidden" name="action" value="send">
 </form>
@@ -52,11 +48,7 @@
     	
     <select id="selectedContact" name="selectedContact" size="1" onchange="selectAlbumForm.submit()">
 <c:forEach items="${contacts}" var="contact">
-           
-                
                     <option value="${contact.email}">${contact.name} - ${contact.email}</option>
-               
-           
         </c:forEach>
     </select><br>
 </form>
