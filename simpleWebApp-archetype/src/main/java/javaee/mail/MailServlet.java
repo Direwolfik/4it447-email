@@ -72,6 +72,8 @@ public class MailServlet extends HttpServlet {
 	                doLogout(request, response);
 	            } else if ("deleteContact".equals(action)) {
 	                doRemoveContact(request, response);
+	            } else if ("editContact".equals(action)){
+	            	doEditContact(request, response);
 	            }
 
 	        } catch (MessagingException e) {
@@ -79,6 +81,16 @@ public class MailServlet extends HttpServlet {
 	        }
 	    }
 
+
+	private void doEditContact(HttpServletRequest request,
+			HttpServletResponse response) {
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		String owner = request.getParameter("owner");
+		int id = Integer.parseInt(request.getParameter("id"));
+		contactsDAO.updateContact(name,email, owner,id);
+		
+	}
 
 	private void doRemoveContact(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {

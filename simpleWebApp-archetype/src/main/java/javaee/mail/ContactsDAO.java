@@ -8,5 +8,6 @@ public interface ContactsDAO {
 		void removeContacts(int[] contactIDs, String owner);
 		List<Contacts> getContacts();
 		void removeContact(String contactID);
+		void updateContact(String name, String email, String owner, int id);
 	
 }

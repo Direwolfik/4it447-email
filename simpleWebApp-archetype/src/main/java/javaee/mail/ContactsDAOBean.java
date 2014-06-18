@@ -74,6 +74,19 @@ public class ContactsDAOBean implements ContactsDAO {
         query.executeUpdate();
 		
 	}
+
+	@Override
+	public void updateContact(String name, String email, String owner, int id) {
+		Contacts contact = new Contacts();
+		contact.setId(id);
+		contact.setName(name);
+		contact.setEmail(email);
+		contact.setOwner(owner);
+		
+		entityManager.merge(contact);
+		entityManager.flush();
+        entityManager.refresh(contact);
+	}
 	}
 
 
