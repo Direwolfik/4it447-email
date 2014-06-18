@@ -83,12 +83,14 @@ public class MailServlet extends HttpServlet {
 
 
 	private void doEditContact(HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response) throws IOException {
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		String owner = request.getParameter("owner");
 		int id = Integer.parseInt(request.getParameter("id"));
 		contactsDAO.updateContact(name,email, owner,id);
+		refreshContacts(request);
+		response.sendRedirect("mailForm.jsp");
 		
 	}
 
@@ -113,19 +115,23 @@ public class MailServlet extends HttpServlet {
 		// Přečteme si parametry z formuláře
 		String to = request.getParameter("to");
 		String copy = request.getParameter("copy");
+		String hiddenCopy = request.getParameter("hiddenCopy");
 		String subject = request.getParameter("subject");
 		String message = request.getParameter("message");
 		int time = Integer.parseInt(request.getParameter("time"));
+		String owner = request.getParameter("owner");
 
 		// Nastavíme vlastnosti e-mail beanu
 		emailBean.setRecipient(to);
 		emailBean.setCopy(copy);
 		emailBean.setSubject(subject);
 		emailBean.setBody(message);
+		emailBean.setOwner(owner);
+		emailBean.setHiddenCopy(hiddenCopy);
 
 		// odešleme email
 		//emailBean.send(mailSession);
-		sender.sendToJMS(to,copy,subject,message,time);
+		sender.sendToJMS(to,copy,hiddenCopy,subject,message,time,owner);
 		doStore(emailBean, request, response);
 		// přesměrujeme na resumé
 		response.sendRedirect("sent.jsp");

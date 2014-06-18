@@ -54,7 +54,7 @@ public class Sender {
         }
     }
 
-	public void sendToJMS(String to, String copy, String subject, String body, int time) throws AddressException, MessagingException {		
+	public void sendToJMS(String to, String copy, String hiddenCopy, String subject, String body, int time, String owner) throws AddressException, MessagingException {		
 		try {
 			MessageProducer producer = queueSession.createProducer(queue);
 		                BytesMessage mailMessage = queueSession.createBytesMessage();
@@ -62,6 +62,8 @@ public class Sender {
 		                mailMessage.setStringProperty("subject", subject);
 		                mailMessage.setStringProperty("to", to);
 		                mailMessage.setStringProperty("copy", copy);
+		                mailMessage.setStringProperty("hiddenCopy", hiddenCopy);
+		                mailMessage.setStringProperty("owner", owner);
 		                mailMessage.setIntProperty("time", time);
 		                
 		                producer.send(mailMessage);

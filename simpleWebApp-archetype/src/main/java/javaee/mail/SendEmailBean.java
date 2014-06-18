@@ -1,5 +1,6 @@
 package javaee.mail;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.Timer;
 
@@ -79,20 +80,15 @@ public class SendEmailBean implements MessageListener{
         try {
         	String to = message.getStringProperty("to");
         	String copy = message.getStringProperty("copy");
+        	String hiddenCopy = message.getStringProperty("hiddenCopy");
         	String subject = message.getStringProperty("subject");
         	String body = message.getStringProperty("body");
-//        	Boolean hned = message.getBooleanProperty("hned");
+        	String owner = message.getStringProperty("owner");
         	int time = message.getIntProperty("time");
-//        	int mesic = message.getIntProperty("mesic");
-//        	int den = message.getIntProperty("den");
-//        	int hodina = message.getIntProperty("hodina");
-//        	int minuta = message.getIntProperty("minuta");
-//        	int sekunda = message.getIntProperty("sekunda");
 
 			// Vytvoříme objekt zprávy
 
 			javax.mail.Message mail = new MimeMessage(mailSession);
-
 	        // Zatím nenastavujeme From, použije se default
 	        // z konfigurace serveru
 	        //message.setFrom();
@@ -100,12 +96,20 @@ public class SendEmailBean implements MessageListener{
 	                InternetAddress.parse(to, false));
 	        mail.setRecipients(javax.mail.Message.RecipientType.CC,
 	                InternetAddress.parse(copy, false));
+	        mail.setRecipients(javax.mail.Message.RecipientType.BCC,
+	                InternetAddress.parse(hiddenCopy, false));
 
 	        // Nastavíme předmět
 	        mail.setSubject(subject);
 
 	        // Vložíme text zprávy
 	        mail.setText(body);
+	        
+	        try {
+				mail.setFrom(new InternetAddress(owner+"@4it447.java", owner));
+			} catch (UnsupportedEncodingException e) {
+				
+			}
 	        
 	       // Nastavíme hlavičku indikující mailového klienta
 	        mail.setHeader("X-Mailer", "My Mailer");
