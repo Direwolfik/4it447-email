@@ -84,6 +84,7 @@ public class MailServlet extends HttpServlet {
 
 	private void doEditContact(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
+		System.out.println("doEdit");
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		String owner = request.getParameter("owner");

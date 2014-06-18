@@ -85,7 +85,7 @@ public class ContactsDAOBean implements ContactsDAO {
 		
 		entityManager.merge(contact);
 		entityManager.flush();
-        entityManager.refresh(contact);
+        
 	}
 	}
 

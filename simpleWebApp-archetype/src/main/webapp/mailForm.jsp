@@ -56,6 +56,8 @@
     <input id="to" name="to" type="select"/><br/>
     <label for="to">Kopie:</label><br/>
     <input id="copy" name="copy" type="select"/><br/>
+    <label for="to">Skrytá kopie:</label><br/> 
+    <input id="hiddenCopy" name="hiddenCopy" type="select"/><br/>
     <label for="to">Odeslat za # minut:</label><br/>
     <select id="time" name="time" type="select" size="1">
     <c:forEach begin="0" end="600" step="5" var="i">
@@ -88,7 +90,7 @@
       <button type="button" onclick="editContact(); return false;">Editovat</button>
 </form>
 <div id="edit_div" style="display: none">
-<form>
+<form action="kontakty" method="post">
 	<input type="hidden" name="action" value="editContact"/><br>
     <h3>Editovat stávající kontakt</h3>
     <label for="name">Jméno:</label><br>
