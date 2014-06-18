@@ -1,0 +1,20 @@
+src/main/java/javaee/mail/Contacts.java:21:	Avoid variables with short names like id
+src/main/java/javaee/mail/Contacts.java:44:	Avoid variables with short names like id
+src/main/java/javaee/mail/ContactsDAO.java:74:	Avoid variables with short names like id
+src/main/java/javaee/mail/ContactsDAOBean.java:65:	Avoid variables with short names like sb
+src/main/java/javaee/mail/ContactsDAOBean.java:85:	Avoid variables with short names like i
+src/main/java/javaee/mail/ContactsDAOBean.java:94:	Avoid variables with short names like id
+src/main/java/javaee/mail/Email.java:21:	Avoid variables with short names like id
+src/main/java/javaee/mail/Email.java:46:	Avoid variables with short names like id
+src/main/java/javaee/mail/EmailDAO.java:38:	Avoid variables with short names like to
+src/main/java/javaee/mail/EmailDAOBean.java:44:	Avoid variables with short names like to
+src/main/java/javaee/mail/MailServlet.java:106:	Avoid variables with short names like id
+src/main/java/javaee/mail/MailServlet.java:145:	Avoid variables with short names like to
+src/main/java/javaee/mail/MailServlet.java:203:	Avoid variables with short names like to
+src/main/java/javaee/mail/SendEmailBean.java:49:	Avoid unused private methods such as 'init()'.
+src/main/java/javaee/mail/SendEmailBean.java:61:	Avoid unused private methods such as 'destroy()'.
+src/main/java/javaee/mail/SendEmailBean.java:65:	New exception is thrown in catch block, original stack trace may be lost
+src/main/java/javaee/mail/SendEmailBean.java:79:	Avoid variables with short names like to
+src/main/java/javaee/mail/Sender.java:37:	Avoid unused private methods such as 'init()'.
+src/main/java/javaee/mail/Sender.java:55:	New exception is thrown in catch block, original stack trace may be lost
+src/main/java/javaee/mail/Sender.java:80:	Avoid variables with short names like to

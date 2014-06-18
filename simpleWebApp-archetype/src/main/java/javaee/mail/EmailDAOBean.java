@@ -50,7 +50,6 @@ public class EmailDAOBean implements EmailDAO {
 		mail.setSubject(subject);
 		mail.setBody(body);
 		mail.setOwner(owner);
-		System.out.println("Ukládám email");
 		entityManager.persist(mail);
 		entityManager.flush();
 	}

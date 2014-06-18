@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -22,6 +20,12 @@ import javax.servlet.http.HttpServletResponse;
 @MultipartConfig
 public class MailServlet extends HttpServlet {
 
+	private static final String OWNER2 = "owner";
+
+	private static final String EMAIL2 = "email";
+
+	private static final String MAIL_FORM_JSP = "mailForm.jsp";
+
 	private static final long serialVersionUID = 1L;
 
 	@EJB
@@ -30,8 +34,6 @@ public class MailServlet extends HttpServlet {
 	private ContactsDAO contactsDAO;
 	@EJB
 	private EmailDAO emailDAO;
-	@Resource(name = "mail/myMailSession")
-	private Session mailSession;
 
 	/*
 	 * (non-Javadoc)
@@ -59,7 +61,7 @@ public class MailServlet extends HttpServlet {
 		// Při HTTP metodě POST se očekává, že je v session
 		// k dispozici e-mail bean.
 		Email email = (Email) request.getSession()
-				.getAttribute("email");
+				.getAttribute(EMAIL2);
 		if (email == null) {
 			createEmailBean(request, response);
 		}
@@ -72,11 +74,11 @@ public class MailServlet extends HttpServlet {
 			} else if ("new".equals(action)) {
 				createEmailBean(request, response);
 			} else if ("store".equals(action)) {
-				doStore(email, request, response);
+				doStore(request);
 			} else if ("restore".equals(action)) {
 				createEmailBean(request, response);
 			} else if ("pridat".equals(action)) {
-				doAddContact(email, request, response);
+				doAddContact(request, response);
 			} else if ("logout".equals(action)) {
 				doLogout(request, response);
 			} else if ("deleteContact".equals(action)) {
@@ -98,14 +100,13 @@ public class MailServlet extends HttpServlet {
 	 */
 	private void doEditContact(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		System.out.println("doEdit");
 		String name = request.getParameter("name");
-		String email = request.getParameter("email");
-		String owner = request.getParameter("owner");
+		String email = request.getParameter(EMAIL2);
+		String owner = request.getParameter(OWNER2);
 		int id = Integer.parseInt(request.getParameter("id"));
 		contactsDAO.updateContact(name, email, owner, id);
 		refreshContacts(request);
-		response.sendRedirect("mailForm.jsp");
+		response.sendRedirect(MAIL_FORM_JSP);
 
 	}
 
@@ -119,11 +120,10 @@ public class MailServlet extends HttpServlet {
 	private void doRemoveContact(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		String selectedContact = request.getParameter("selectedContact");
-		System.out.println("attempting to remove " + selectedContact);
 		contactsDAO.removeContact(selectedContact);
 
 		refreshContacts(request);
-		response.sendRedirect("mailForm.jsp");
+		response.sendRedirect(MAIL_FORM_JSP);
 
 	}
 
@@ -148,7 +148,7 @@ public class MailServlet extends HttpServlet {
 		String subject = request.getParameter("subject");
 		String message = request.getParameter("message");
 		int time = Integer.parseInt(request.getParameter("time"));
-		String owner = request.getParameter("owner");
+		String owner = request.getParameter(OWNER2);
 
 		// Nastavíme vlastnosti e-mail beanu
 		email.setRecipient(to);
@@ -160,7 +160,7 @@ public class MailServlet extends HttpServlet {
 
 		// odešleme email
 		sender.sendToJMS(to, copy, hiddenCopy, subject, message, time, owner);
-		doStore(email, request, response);
+		doStore(request);
 		// přesměrujeme na resumé
 		response.sendRedirect("sent.jsp");
 	}
@@ -173,17 +173,17 @@ public class MailServlet extends HttpServlet {
 	 * @param response
 	 * @throws IOException
 	 */
-	private void doAddContact(Email emailBean, HttpServletRequest request,
+	private void doAddContact(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		String name = request.getParameter("name");
-		String email = request.getParameter("email");
-		String owner = request.getParameter("owner");
+		String email = request.getParameter(EMAIL2);
+		String owner = request.getParameter(OWNER2);
 
 		contactsDAO.addContact(name, email, owner);
 
 		refreshContacts(request);
 
-		response.sendRedirect("mailForm.jsp");
+		response.sendRedirect(MAIL_FORM_JSP);
 	}
 
 	/**
@@ -196,8 +196,7 @@ public class MailServlet extends HttpServlet {
 	 * @throws MessagingException
 	 * @throws ServletException
 	 */
-	private void doStore(Email email, HttpServletRequest request,
-			HttpServletResponse response) throws IOException,
+	private void doStore(HttpServletRequest request) throws IOException,
 			MessagingException, ServletException {
 
 		// Přečteme si parametry z formuláře
@@ -206,7 +205,7 @@ public class MailServlet extends HttpServlet {
 		String body = request.getParameter("message");
 		String copy = request.getParameter("copy");
 		String hiddenCopy = request.getParameter("hiddenCopy");
-		String owner = request.getParameter("owner");
+		String owner = request.getParameter(OWNER2);
 
 		emailDAO.addEmail(to, copy, hiddenCopy, subject, body, owner);
 		refreshEmails(request);
@@ -222,9 +221,7 @@ public class MailServlet extends HttpServlet {
 	 */
 	private void doLogout(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		request.getSession().setAttribute("email", null);
-		System.out.println("bla "
-				+ request.getSession().getAttribute("email"));
+		request.getSession().setAttribute(EMAIL2, null);
 		request.getSession().invalidate();
 		response.sendRedirect("");
 	}
@@ -242,7 +239,7 @@ public class MailServlet extends HttpServlet {
 
 		// Lazy inicializace email beanu
 		Email email = (Email) request.getSession()
-				.getAttribute("email");
+				.getAttribute(EMAIL2);
 
 		if (email == null) {
 			// email bean není v session, vytvoříme jej tedy
@@ -251,7 +248,7 @@ public class MailServlet extends HttpServlet {
 			// Pokud je email bean v session, přesměrováváme
 			// na emailForm.jsp.
 
-			response.sendRedirect("mailForm.jsp");
+			response.sendRedirect(MAIL_FORM_JSP);
 		}
 	}
 
@@ -268,13 +265,13 @@ public class MailServlet extends HttpServlet {
 
 		Email email = new Email();
 		email.setOwner(nick);
-		request.getSession().setAttribute("email", email);
+		request.getSession().setAttribute(EMAIL2, email);
 
 		refreshContacts(request);
 		refreshEmails(request);
 
 		// přesměrujeme na formulář
-		response.sendRedirect("mailForm.jsp");
+		response.sendRedirect(MAIL_FORM_JSP);
 	}
 
 	/**

@@ -9,8 +9,6 @@ import javax.ejb.Stateless;
 import javax.jms.*;
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 /**
  * Tento bezstavový bean má na starosti odesílání zpráv do JMS fronty. Při
@@ -24,8 +22,6 @@ import javax.persistence.PersistenceContext;
 @LocalBean
 public class Sender {
 
-	@PersistenceContext
-	private EntityManager entityManager;
 	@Resource(mappedName = "jms/sendQueueFactory")
 	private ConnectionFactory connectionFactory;
 	@Resource(mappedName = "jms/sendQueue")

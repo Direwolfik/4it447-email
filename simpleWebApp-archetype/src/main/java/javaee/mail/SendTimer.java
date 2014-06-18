@@ -1,8 +1,6 @@
 package javaee.mail;
 
-import java.util.Timer;
 import java.util.TimerTask;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Transport;
@@ -16,9 +14,9 @@ import javax.mail.Transport;
  */
 public class SendTimer extends TimerTask {
 
-	private Message mail;
+	private final Message mail;
 
-	public SendTimer(Message mail, Timer scheduler) {
+	public SendTimer(Message mail) {
 		this.mail = mail;
 	}
 

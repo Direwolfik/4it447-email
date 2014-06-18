@@ -1,0 +1,213 @@
+<?xml version="1.0"?>
+
+<ruleset name="Favorites" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../etc/ruleset_xml_schema.xml">
+  <description>
+	Seznam pravidel používaný na VŠE pro kontrolovu konvencí a pro upozornìní na
+	problematické konstrukce v kódu.
+  </description>
+
+  <rule ref="rulesets/basic.xml/EmptyCatchBlock" message="Nepoužívejte prázdné bloky 'catch'"> </rule>
+  <rule ref="rulesets/basic.xml/EmptyIfStmt" message="Nepoužívejte prázdné bloky 'if'"> </rule>
+  <rule ref="rulesets/basic.xml/EmptyWhileStmt" message="Nepoužívejte prázdné cykly 'while'"> </rule>
+  <rule ref="rulesets/basic.xml/EmptyTryBlock" message="Nepoužívejte prázdné bloky 'try'"> </rule>
+  <rule ref="rulesets/basic.xml/EmptyFinallyBlock" message="Nepoužívejte prázdné bloky 'finally'"> </rule>
+  <rule ref="rulesets/basic.xml/EmptySwitchStatements" message="Nepoužívejte prázdné pøíkazy 'switch'"> </rule>
+  <rule ref="rulesets/basic.xml/JumbledIncrementer" message="Nepoužívejte iteraèní promìnnou vnìjšího cyklu v podmínce vnitøního cyklu"> </rule>
+  <rule ref="rulesets/basic.xml/ForLoopShouldBeWhileLoop" message="Tento cyklus 'for' by byl pøehlednìjši jako 'while'"> </rule>
+  <rule ref="rulesets/basic.xml/UnnecessaryConversionTemporary" message="Primitivní datové typy pøevádìjte na String pøes konstrukci typu Integer.toString(x)"> </rule>
+  <rule ref="rulesets/basic.xml/OverrideBothEqualsAndHashcode" message="Postarejte se, aby vždy byly pøekryty obì metody hashCode() a equals()"> </rule>
+  <rule ref="rulesets/basic.xml/DoubleCheckedLocking" message="Dvakrát kontrolovaná podmínka není v Javì pro vlákna bezpeèná"> </rule>
+  <rule ref="rulesets/basic.xml/ReturnFromFinallyBlock" message="V bloku 'finnaly' nepoužívejte pøíkaz 'return' - ztracejí se výjimky."> </rule>
+  <rule ref="rulesets/basic.xml/EmptySynchronizedBlock" message="Nepoužívejte prázdné synchronizaèní bloky"> </rule>
+  <rule ref="rulesets/basic.xml/UnnecessaryReturn" message="Na tomto místì je pøíkaz return zbyteèný"> </rule>
+  <rule ref="rulesets/basic.xml/EmptyStaticInitializer" message="Nalezen prázdný statický inicializaèní blok"> </rule>
+  <rule ref="rulesets/basic.xml/UnconditionalIfStatement" message="Nepoužívejte pøíkaz 'if' pokud výsledek podmínky je vždy true èi false"> </rule>
+  <rule ref="rulesets/basic.xml/EmptyStatementNotInLoop" message="Za ukonèovací složenou závorkou nemusí být uveden støedník."> </rule>
+  <rule ref="rulesets/basic.xml/BooleanInstantiation" message="Nevytváøejte instance tøídy Boolean; vìtšinou je výhodnìjší použít metodu Boolean.valueOf()."> </rule>
+  <rule ref="rulesets/basic.xml/UnnecessaryFinalModifier" message="Když je tøída final, jsou automaticky i všechny metody final - není potøeba to u nich uvádìt."> </rule>
+  <rule ref="rulesets/basic.xml/CollapsibleIfStatements" message="Doporuèujeme spojit dva pøíkazy if do jednoho - spojte podmínky."> </rule>
+  <rule ref="rulesets/basic.xml/UselessOverridingMethod" message="Zbyteèné pøetìžování metody pøedka."> </rule>
+  <rule ref="rulesets/basic.xml/AvoidDecimalLiteralsInBigDecimalConstructor" message="Nevytváøejte instance BigDecimal s konstantou typu double ci float. Použijte String."> </rule>
+  <rule ref="rulesets/basic.xml/UselessOperationOnImmutable" message="Operace na nemìnných objektech (BigDecimal, BigInteger, ...) nemìní obsah objektu - výsledek pøiøaïte."> </rule>
+  <rule ref="rulesets/basic.xml/MisplacedNullCheck" message="Chybnì umístìna kontrola na null; pøed provedením kontroly vznikne NullPointerException."> </rule>
+  <rule ref="rulesets/basic.xml/UnusedNullCheckInEquals" message="Porovnání na hodnotu není nutné uvádìt, kontrola se provede uvnitø metody equals."></rule>
+  <rule ref="rulesets/basic.xml/AvoidThreadGroup" message="Nepoužívejte ThreadGroup, nemá vláknovì bezpeèné metody."> </rule>
+  <rule ref="rulesets/basic.xml/BrokenNullCheck" message="Kontrola na null není dostateèná, stále mùže vzniknout NullPointerException (pravdìpodobnì zámìna || a &amp;&amp;).."> </rule>
+  <rule ref="rulesets/basic.xml/BigIntegerInstantiation" message="Nevytváøejte instance již existujících hodnot (ZERO, ONE, TEN)."> </rule>
+  <rule ref="rulesets/basic.xml/AvoidUsingOctalValues" message="Nepoužívejte èíselné konstanty zaèínající 0. Jsou interpretovány jako oktalové."> </rule>
+  <rule ref="rulesets/basic.xml/CheckResultSet" message="Vždy zkontrolujte návratovou hodnotu navigaèních metod tøídy ResultSet (next, previous, first, last)."> </rule>
+  <rule ref="rulesets/basic.xml/AvoidMultipleUnaryOperators" message="Více unárních operátorù za sebou je pravdìpodobnì chyba (minimálnì je to nepøehledné)."> </rule>
+  <rule ref="rulesets/basic.xml/EmptyInitializer" message="Prázdný inicializaèní blok je zbyteèný"></rule>
+  <rule ref="rulesets/basic.xml/DontCallThreadRun" message="Pro spuštìní vlánka nevolejte metodu run(), ale metodu start()."></rule>
+  
+  <rule ref="rulesets/braces.xml/IfStmtsMustUseBraces" message="Nepoužívejte pøíkaz 'if' bez složených závorek"> </rule>
+  <rule ref="rulesets/braces.xml/WhileLoopsMustUseBraces" message="Nepoužívejte pøíkaz 'while' bez složených závorek"> </rule>
+  <rule ref="rulesets/braces.xml/IfElseStmtsMustUseBraces" message="Nepoužívejte vìtev 'else' bez složených závorek"> </rule>
+  <rule ref="rulesets/braces.xml/ForLoopsMustUseBraces" message="Nepoužívejte pøíkaz 'for' bez složených závorek"> </rule>
+  
+  <rule ref="rulesets/clone.xml/ProperCloneImplementation" message="Metoda clone() by mìla obsahovat voláni super.clone()"> </rule>
+  <rule ref="rulesets/clone.xml/CloneThrowsCloneNotSupportedException" message="Metoda clone() by mìla podporovat/vytváøet výjimku CloneNotSupportedException"> </rule>
+  <rule ref="rulesets/clone.xml/CloneMethodMustImplementCloneable" message="Metoda clone() by se mìla používat pouze, pokud se implementuje rozhraní Cloneable"> </rule>
+
+  <rule ref="rulesets/codesize.xml/NPathComplexity" message="Rùzných cest prùchodu metodou ''{0}()'' je {1}, doporuèený limit je 200 (NPath complexity)."> </rule>
+  <rule ref="rulesets/codesize.xml/ExcessiveMethodLength" message="Metoda má pøíliš mnoho øádek (limit=100).">
+    <properties>
+        <property name="minimum" value="100"/>
+    </properties>  
+  </rule>
+  <rule ref="rulesets/codesize.xml/ExcessiveParameterList" message="Nepoužívejte metody, které mají pøíliš mnoho parametrù (limit=10)."> </rule>
+  <rule ref="rulesets/codesize.xml/ExcessiveClassLength" message="Tato tøída má pøíliš mnoho øádek, zkuste ji rozdìlit (limit=1000).">
+  </rule>
+  <rule ref="rulesets/codesize.xml/CyclomaticComplexity" message = "{0} ''{1}'' je pøíliš složitá (Cyclomatic Complexity je {2}).">
+      <properties>
+      <property name="reportLevel" description="The Cyclomatic Complexity reporting threshold"  value="15"/>
+      </properties>
+  </rule>
+  <rule ref="rulesets/codesize.xml/ExcessivePublicCount" message="Pøíliš vysoký poèet veøejných metod a datových atributù objektu (limit=45)."> </rule>
+  <rule ref="rulesets/codesize.xml/TooManyFields" message="Pøíliš mnoho datových atributù (limit=20).">
+      <properties>
+       <property name="maxfields" value="20"/>
+      </properties>
+  </rule>
+  <rule ref="rulesets/codesize.xml/NcssMethodCount" message="Metoda {0}() má pøíliš mnoho pøíkazù: {1} (limit=50)."> 
+    <properties>
+        <property name="minimum" value="50"/>
+    </properties>  
+  </rule>
+	<rule ref="rulesets/codesize.xml/NcssTypeCount" message="Tøída má pøíliš mnoho pøíkazù: {0} (limit=800).">
+    <properties>
+        <property name="minimum" value="800"/>
+    </properties>  
+	</rule>
+	<rule ref="rulesets/codesize.xml/NcssConstructorCount" message="Konstruktor se {0} parametry má pøíliš mnoho pøíkazù: {1} (limit=50)">
+    <properties>
+        <property name="minimum" value="50"/>
+    </properties>
+	</rule>
+  <rule ref="rulesets/codesize.xml/TooManyMethods" message="Metoda má pøíliš mnoho metod (limit=15)."> 
+	    <properties>
+          <property name="maxmethods" value="15"/>
+		</properties>
+  </rule>
+
+  <rule ref="rulesets/coupling.xml/CouplingBetweenObjects" message="Velký poèet rùzných typù datových atributù je pøíznakem pøilišné závislosti tøídy na jiných."> </rule>
+  <rule ref="rulesets/coupling.xml/ExcessiveImports" message="Velký poèet importù je pøíznakem pøílišné závislosti tøídy na jiných."> </rule>
+  <rule ref="rulesets/coupling.xml/LooseCoupling" message="Pro oznaèeni typu promìnné nepoužívejte konkretní tøídu ''{0}''; vhodnìjši je použít rozhraní (interface)."> </rule>
+
+  <!-- <rule ref="rulesets/design.xml/UseSingleton" message="All methods are static.  Consider using Singleton instead.  Alternatively, you could add a private constructor or make the class abstract to silence this warning."> </rule> -->
+  <rule ref="rulesets/design.xml/SimplifyBooleanReturns" message="Pøíkaz if..then..else je zbyteèný pokud se uvnitø pouze vrací hodnota boolean."> </rule>
+  <rule ref="rulesets/design.xml/SimplifyBooleanExpressions" message="Vyhnìte se zbyteènému porovnávání booleovských výrazù."> </rule>
+  <rule ref="rulesets/design.xml/SwitchStmtsShouldHaveDefault" message="Pøíkaz 'switch' by mìl obsahovat návìští 'default'."> </rule>
+  <rule ref="rulesets/design.xml/AvoidDeeplyNestedIfStmts" message="Mnoho vnoøených pøíkazù if..then se špatnì ète."> </rule>
+  <rule ref="rulesets/design.xml/AvoidReassigningParameters" message="Pøiøazování nové hodnoty do parametru ''{0}'' je problematické. Použijte lokální promìnné."> </rule>
+  <rule ref="rulesets/design.xml/SwitchDensity" message="V pøíkazu 'switch' je velké množství pøíkazù za návìštími. Zkuste refaktorovat."> </rule>
+  <rule ref="rulesets/design.xml/ConstructorCallsOverridableMethod" message="Z konstruktoru nevolejte metody, ktere je možné pøekrýt v potomkovi."> </rule>
+  <rule ref="rulesets/design.xml/AccessorClassGeneration" message="Nevytváøejte instance tøíd s privátním konstrukterem z vnitøních tøíd."> </rule>
+  <rule ref="rulesets/design.xml/FinalFieldCouldBeStatic" message="Datový atribut final by mìl být vìtšinou i static - ušetøí se místo v pamìti."> </rule>
+  <rule ref="rulesets/design.xml/CloseResource" message="Zajistìte, aby se objekt {0} z SQL po použití vždy uzavíral (zavolala metoda close() )."> </rule>
+  <rule ref="rulesets/design.xml/NonStaticInitializer" message="Vyhnìte se používání nestatických inicializaèních bloku."> </rule>
+  <rule ref="rulesets/design.xml/DefaultLabelNotLastInSwitchStmt" message="V pøíkazu 'switch' by návìští 'default' mìlo být poslední."> </rule>
+  <rule ref="rulesets/design.xml/NonCaseLabelInSwitchStatement" message="Uvnitø pøíkazu switch by nemìla být umístìna návìští pro skoky."> </rule>
+  <!-- <rule ref="rulesets/design.xml/OptimizableToArrayCall" message="This call to Collection.toArray() may be optimizable"> </rule> -->
+  <rule ref="rulesets/design.xml/BadComparison" message="Porovnávání s hodnotou Double.NaN je obvykle logickou chybou návrhu."> </rule>
+  <rule ref="rulesets/design.xml/EqualsNull" message="Pro porovnáváni s hodnotout null nepoužívejte equals()"> </rule>
+  <rule ref="rulesets/design.xml/ConfusingTernary" message="V pøíkazu if (x != y) ..; else ..; otoète podmínku a bloky, aby byl èitelnìjší."> </rule>
+  <rule ref="rulesets/design.xml/InstantiationToGetClass" message="Vìtšinou je vhodnìjší pro vytváøení instancí používat èlen .class než metodu getClass()"> </rule>
+  <rule ref="rulesets/design.xml/IdempotentOperations" message="Vyhnìte se idempotentním (zbyteèným) operacím (napø. x = x)"> </rule>
+  <rule ref="rulesets/design.xml/SimpleDateFormatNeedsLocale" message="Pøi vytváøení instance SimpleDateFormat je potøeba specifikovat Locale"> </rule>
+  <!-- <rule ref="rulesets/design.xml/ImmutableField" message="Private field could be made final.  It is only initialized in the declaration or constructor."> </rule> -->
+  <!-- <rule ref="rulesets/design.xml/UseLocaleWithCaseConversions" message="Pri pouzivani metod String.toLowerCase()/toUpperCase() pouzivejte Locale (nastaveni vhodneho narodniho prostredi)"> </rule> -->
+  <rule ref="rulesets/design.xml/AvoidProtectedFieldInFinalClass" message="Používání modifikátoru 'protected' ve tøídách oznaèených 'final' nemá význam."> </rule>
+  <rule ref="rulesets/design.xml/AssignmentToNonFinalStatic" message="Pøiøazovat v konstruktoru hodnotu do statické promìnné, která není final, je nebezpeèné (pøi vytvoøení další instance se pøepíše hodnota)."> </rule>
+  <rule ref="rulesets/design.xml/MissingStaticMethodInNonInstantiatableClass" message="Tøída má privátní konstruktor a žádnou statickou metodu èi statickou konstantu. Nelze použít."> </rule>
+  <rule ref="rulesets/design.xml/SimplifyConditional" message="Test na hodnotu null je zbyteèný, provádí ho též použitý operátor instanceof"> </rule>
+  <rule ref="rulesets/design.xml/CompareObjectsWithEquals" message="Pro porovnání refereèních typù používejte equals() a ne ==."> </rule>
+  <rule ref="rulesets/design.xml/UnnecessaryLocalBeforeReturn" message="Zbyteèné pøiøazení do lokalní promìnné ''{0}'' pøed zavoláním pøíkazu return."> </rule>
+  <rule ref="rulesets/design.xml/UncommentedEmptyMethod" message="Pokud prázdnou metodu potøebujete, doplòte do ní komentáø, proè je prázdná."> </rule>
+  <rule ref="rulesets/design.xml/UncommentedEmptyConstructor" message="Pokud prázdný konstruktor potøebujete, doplòte do nìj komentáø, proè je prázdný."> </rule>
+  <rule ref="rulesets/design.xml/PreserveStackTrace" message="Pøi vytváøení nové výjimky v bloku catch by se mìla pøedat odchycená výjimka jako parametr."> </rule>
+  <rule ref="rulesets/design.xml/UseCollectionIsEmpty" message="Místo porovnání size() == 0 (èi size() != 0) použijte metodu isEmpty()"> </rule>
+  <rule ref="rulesets/design.xml/ClassWithOnlyPrivateConstructorsShouldBeFinal" message="Tøída s privátním konstruktorem by mìla být oznaèena final."> </rule>
+  <rule ref="rulesets/design.xml/SingularField" message="Datový atribut ''{0}'' se používá pouze v jedné metodì. Pravdìpodobnì se mùže zmìnit na lokální promìnnou metody.">
+	       <property name="DisallowNotAssignment" description="Disallow violations where the first usage is not an assignment">
+		     <value>true</value>
+	       </property>
+   </rule>
+  <rule ref="rulesets/design.xml/ReturnEmptyArrayRatherThanNull" message="Vhodnìjší je vracet prázdné pole než hodnotu null."> </rule>
+
+  <rule ref="rulesets/finalizers.xml/EmptyFinalizer" message="Prázdné metody finalize() nemají smysl"> </rule>
+  <rule ref="rulesets/finalizers.xml/FinalizeOnlyCallsSuperFinalize" message="Metoda finalize() by nemìla pouze volat super.finalize()"> </rule>
+  <rule ref="rulesets/finalizers.xml/FinalizeOverloaded" message="Metoda finalize() by se nemìla pøetìžovat"> </rule>
+  <rule ref="rulesets/finalizers.xml/FinalizeDoesNotCallSuperFinalize" message="Posledním pøíkazem metody finalize() by mìlo být volání super.finalize()"> </rule>
+  <rule ref="rulesets/finalizers.xml/AvoidCallingFinalize" message="Metoda finalize() by se nemìla pøímo volat (volá ji Garbage Collector)"> </rule>
+  <rule ref="rulesets/finalizers.xml/FinalizeShouldBeProtected" message="Metoda finalize() by mìla být pøístupná potomkùm (tj. protected)"> </rule>
+
+  <rule ref="rulesets/imports.xml/DuplicateImports" message="Vyvarujte se duplicitním importùm jako ''{0}''"> </rule>
+  <rule ref="rulesets/imports.xml/DontImportJavaLang" message="Není vhodné importovat z balíèku 'java.lang'"> </rule>
+  <rule ref="rulesets/imports.xml/UnusedImports" message="Zrušte nevyužité importy jako ''{0}''"> </rule>
+  <rule ref="rulesets/imports.xml/ImportFromSamePackage" message="Není potøeba importovat tøídy/rozhraní ze stejného balíèku."> </rule>
+  <rule ref="rulesets/imports.xml/TooManyStaticImports" message="Pøíliš mnoho (>4) statických importù vede k nepøehlednému kódu."> </rule>
+
+  <rule ref="rulesets/junit.xml/JUnitStaticSuite" message="Metoda suite() není public static, takže ji nelze v testech JUnit zavolat."> </rule>
+  <rule ref="rulesets/junit.xml/JUnitSpelling" message="Název metody se pøíliš podobá metodám setUp a tearDown z JUnit."> </rule>
+  <!-- <rule ref="rulesets/junit.xml/JUnitAssertionsShouldIncludeMessage" message="Pri volani metod assert* z JUnit je vhodne uvadet zpravu popisujici chybu."> </rule> -->
+  <rule ref="rulesets/junit.xml/JUnitTestsShouldIncludeAssert" message="Testy JUnit by mìly obsahovat volání assert...() ci fail()"> </rule>
+  <rule ref="rulesets/junit.xml/TestClassWithoutTestCases" message="Jméno tøídy evokuje JUnit testy a pøitom neobsahuje testy. Zmìòte jméno tøídy èi doplòte testy."> </rule>
+  <rule ref="rulesets/junit.xml/UseAssertEqualsInsteadOfAssertTrue" message="Pro porovnání hodnot použijte assertEquals a ne assertTrue èi assertFalse s metodou equals."> </rule>
+  <rule ref="rulesets/junit.xml/UseAssertSameInsteadOfAssertTrue" message="Pro porovnání identity použijte assertSame a ne assertTrue èi assertFalse se ==."> </rule>
+  <rule ref="rulesets/junit.xml/UseAssertNullInsteadOfAssertTrue" message="Pro test na hodnotu null použijte assertNull èi assertNotNull a ne assertTrue èi assertFalse."> </rule>
+  
+  <rule ref="rulesets/naming.xml/LongVariable" message="Nepoužívejte dlouhé názvy promìnných jako ''{0}'' (limit=20)."> 
+      <properties>
+          <property name="minimum" value="20"/>
+      </properties>
+  </rule>
+  <rule ref="rulesets/naming.xml/ShortVariable" message="Nepoužívejte krátké názvy promìnných jako ''{0}'' (minimum=3)."> </rule>
+  <rule ref="rulesets/naming.xml/ShortMethodName" message="Nepoužívejte krátké názvy metod (minimum=3)."> </rule>
+  <!-- <rule ref="rulesets/naming.xml/VariableNamingConventions" message="{0} variable {1} should begin with {2}"> </rule> -->
+  <rule ref="rulesets/naming.xml/MethodNamingConventions" message="Název metody nezaèíná malým písmenem."> </rule>
+  <rule ref="rulesets/naming.xml/ClassNamingConventions" message="Jméno tøídy by mìlo zaèínat velkým písmenem."> </rule>
+  <rule ref="rulesets/naming.xml/AbstractNaming" message="Jméno abstraktní tøídy by mìlo být dle vzoru 'AbstractXXX'"> </rule>
+  <rule ref="rulesets/naming.xml/AvoidDollarSigns" message="Nepoužívejte znak dolaru ve jménu promìnné/metody/tøídy/rozhraní"> </rule>
+  <rule ref="rulesets/naming.xml/MethodWithSameNameAsEnclosingClass" message="Tøídy by nemìly mít metody se stejným názvem jako jméno tøídy - neplatí pro konstruktory."> </rule>
+  <rule ref="rulesets/naming.xml/SuspiciousHashcodeMethodName" message="Název metody se pøíliš podobá metodì hasCode()."> </rule>
+  <rule ref="rulesets/naming.xml/SuspiciousConstantFieldName" message="Jméno promìnné vypadá jako konstanta, ale nemá pøíslušné modifikátory (final, static)"> </rule>
+  <rule ref="rulesets/naming.xml/SuspiciousEqualsMethodName" message="Hlavièka metody se pøíliì podobá metodì equals(Object o)."> </rule>
+  <rule ref="rulesets/naming.xml/PackageCase" message="Jméno balíèku nemá obsahovat velká písmena."> </rule>
+  
+  <rule ref="rulesets/strictexception.xml/AvoidCatchingThrowable" message="Pøi specifikaci odchytávaných výjimek by se nemìl používat pøedek Throwable"> </rule>
+  <rule ref="rulesets/strictexception.xml/SignatureDeclareThrowsException" message="V hlavièce konstruktoru èi metody by se nemìla vyhazovat výjimka Exception, ale konkretní potomek"> </rule>
+  <rule ref="rulesets/strictexception.xml/ExceptionAsFlowControl" message="Nepoužívejte výjimky pro øízeni bìhu programu"> </rule>
+  <rule ref="rulesets/strictexception.xml/AvoidCatchingNPE" message="Neodchytávejte NullPointerException; upravte kód tak, aby tato výjimka nenastala."> </rule>
+  <rule ref="rulesets/strictexception.xml/AvoidThrowingRawExceptionTypes" message="Vyhnìte se vyvolávání obecných výjimek èi NullPointerException."> </rule>
+  <rule ref="rulesets/strictexception.xml/AvoidThrowingNullPointerException" message="Nevytváøejte NullPointerException, vhodnìjší je použít IllegalArgumentException."> </rule>
+  <rule ref="rulesets/strictexception.xml/DoNotExtendJavaLangError" message="Nevytváøejte potomky java.lang.Error."> </rule>
+  <rule ref="rulesets/strictexception.xml/DoNotThrowExceptionInFinally" message="Nevyvolávejte výjimky v bloku finally, obtížnì se poté sleduje prùbìh programu."> </rule>
+  <rule ref="rulesets/strictexception.xml/AvoidCatchingGenericException" message="Neodchytávejte obecné výjimky jako Exception èi RuntimeException."> </rule>
+
+  <rule ref="rulesets/strings.xml/AvoidDuplicateLiterals" message="Øetìzec {0} je v souboru {1} krát; první výskyt je na øádku {2}. Použijte pojmenovanou konstantu.">
+   <properties>
+    <property name="threshold" description="The number of duplicate literals reporting threshold" value="4"/>
+    <property name="skipAnnotations" description="Skip literals within Annotations" value="false"/>
+    <property name="exceptionlist" description="Strings in that list are skipped"/>
+    <property name="separator" description="Separator used in the exceptionlist" value=","/>
+    <property name="exceptionfile" description="File containing strings to skip (one string per line), only used if exceptionlist is not set"/>
+   </properties>
+  </rule>
+  <rule ref="rulesets/strings.xml/StringInstantiation" message="Obvykle je zbyteèné vytváøet instance tøídy String pomocí konstruktoru."> </rule>
+  <rule ref="rulesets/strings.xml/StringToString" message="Nevolejte metodu toString() u instance tøídy String; je to zbyteèné."> </rule>
+  <rule ref="rulesets/strings.xml/InefficientStringBuffering" message="Nespojujte øetìzce pomocí + v konstruktoru tøídy StringBuffer (a StringBuilder) èi v metodì append tìchto tøíd."> </rule>
+  <rule ref="rulesets/strings.xml/UnnecessaryCaseChange" message="Zbyteèný pøevod na malá/velká písmena - pro porovnání je vhodnìjší použít String.equalsIgnore() než String.toUpperCase().equals()."> </rule>  
+  <rule ref="rulesets/strings.xml/UseEqualsToCompareStrings" message="Pro porovnání obsahu øetìzcù použijte equals(), nepoužívejte ''=='' ci ''!=''."> </rule>  
+  <rule ref="rulesets/strings.xml/AppendCharacterWithChar" message="Pokud chcete pøidat jeden znak, napište ho jako char a ne jako String"> </rule>
+  
+ <!-- <rule ref="rulesets/sunsecure.xml/MethodReturnsInternalArray" message="Nevracejte primo vnitrni pole ''{0}'', vratte kopii pole."> </rule> -->
+
+  <rule ref="rulesets/unusedcode.xml/UnusedPrivateField" message="Privátní promìnná ''{0}'' není nikde v kódu použita"> </rule>
+  <rule ref="rulesets/unusedcode.xml/UnusedLocalVariable" message="Lokální promìnná ''{0}'' není nikde v metodì použita"> </rule>
+  <rule ref="rulesets/unusedcode.xml/UnusedPrivateMethod" message="Vyhnìte se vytváøení privátních metod, které nejsou nikde použity jako ''{0}''"> </rule>
+  <rule ref="rulesets/unusedcode.xml/UnusedFormalParameter" message="Nedeklarujte formalní parametry metody jako ''{1}'', které poté v metodì nepoužijete."> </rule>
+
+</ruleset>
+

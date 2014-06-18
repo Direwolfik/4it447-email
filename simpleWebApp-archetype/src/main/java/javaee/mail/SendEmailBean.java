@@ -15,14 +15,12 @@ import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
-import javax.jms.Queue;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+
 
 /**
  * Message-Driven Bean implementation class for: SendEmailBean 
@@ -37,23 +35,12 @@ import javax.persistence.PersistenceContext;
 		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue") })
 public class SendEmailBean implements MessageListener {
 
-	/**
-	 * Default constructor.
-	 */
-	public SendEmailBean() {
-	}
-
 	@Resource(name = "mail/myMailSession")
 	private Session mailSession;
-	@PersistenceContext
-	private EntityManager entityManager;
 	@Resource(mappedName = "jms/sendQueueFactory")
 	private ConnectionFactory connectionFactory;
-	@Resource(mappedName = "jms/sendQueue")
-	private Queue queue;
-
 	private Connection connection;
-	private Timer scheduler;
+	
 
 	/**
 	 * Metoda vytváří spojení s JMS frontou
@@ -131,10 +118,9 @@ public class SendEmailBean implements MessageListener {
 
 			// Odešleme zprávu
 			// Transport.send(mail);
-			System.out.print("Vytvářím Timer s časem " + time * 60 * 1000
-					+ " milisekund");
+			Timer scheduler;
 			scheduler = new Timer();
-			SendTimer timeMe = new SendTimer(mail, scheduler);
+			SendTimer timeMe = new SendTimer(mail);
 			scheduler.schedule(timeMe, time * 60 * 1000);
 
 		} catch (JMSException e) {

@@ -24,10 +24,10 @@ public class ContactsDAOBean implements ContactsDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Contacts> getContactsByOwner(String owner) {
-		Query q = entityManager
+		Query query = entityManager
 				.createQuery("select c from Contacts c where c.owner=:owner");
-		q.setParameter("owner", owner);
-		return q.getResultList();
+		query.setParameter("owner", owner);
+		return query.getResultList();
 	}
 
 	@Override
