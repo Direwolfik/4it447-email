@@ -161,9 +161,10 @@ public class MailServlet extends HttpServlet {
 		String subject = request.getParameter("subject");
 		String body = request.getParameter("message");
 		String copy = request.getParameter("copy");
+		String hiddenCopy = request.getParameter("hiddenCopy");
 		String owner = request.getParameter("owner");
 
-		emailDAO.addEmail(to, copy, subject, body, owner);
+		emailDAO.addEmail(to, copy, hiddenCopy, subject, body, owner);
 		refreshEmails(request);
 	}
 

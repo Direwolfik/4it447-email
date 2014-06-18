@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
@@ -23,6 +22,7 @@
 <table id="maily">
 	<th>Komu:</th>
 	<th>Kopie:</th>
+	<th>Skrytá kopie:</th>
 	<th>Předmět:</th>
 	<th>Zpráva:</th>
 	
@@ -32,6 +32,9 @@
 		</td>
 		<td>
 			<input type="text" id="filterCopy" placeholder="Filtr kopie..."/>
+		</td>
+		<td>
+			<input type="text" id="filterHiddenCopy" placeholder="Filtr skyryté kopie..."/>
 		</td>
 		<td>
 			<input type="text" id="filterSubject" placeholder="Filtr předmět..."/>
@@ -44,6 +47,7 @@
 		<tr>
 			<td class="to">${email.recipient}</td>
 			<td class="copy">${email.copy}</td>
+			<td class="hiddenCopy">${email.hiddenCopy}</td>
 			<td class="subject">${email.subject}</td>
 			<td class="body">${email.body}</td>
 		</tr>
@@ -87,6 +91,7 @@
       <input type="submit" value="Smazat"/>
       <button type="button" onclick="addContact(); return false;">Přidat "komu"</button>
       <button type="button" onclick="addCopy(); return false;">Přidat "kopie"</button>
+      <button type="button" onclick="addHiddenCopy(); return false;">Přidat "skrytá kopie"</button>
       <button type="button" onclick="editContact(); return false;">Editovat</button>
 </form>
 <div id="edit_div" style="display: none">
@@ -131,6 +136,13 @@ function addCopy() {
 	var elem = document.getElementById("copy");
 	elem.value = elem.value+res[1]+", ";
 	}
+function addHiddenCopy() {
+	var e = document.getElementById("selectedContact");
+	var strContact = e.options[e.selectedIndex].text;
+	var res = strContact.split(" - "); 
+	var elem = document.getElementById("hiddenCopy");
+	elem.value = elem.value+res[1]+", ";
+	}
 function editContact() {
 	var e = document.getElementById("selectedContact");
 	var id = e.options[e.selectedIndex].value;
@@ -165,6 +177,12 @@ $(function() {
     $('#filterCopy').keyup(function() { 
         $("#maily td.copy:contains('" + $(this).val() + "')").parent().show();
         $("#maily td.copy:not(:contains('" + $(this).val() + "'))").parent().hide();
+    });    
+});
+$(function() {    
+    $('#filterHiddenCopy').keyup(function() { 
+        $("#maily td.hiddenCopy:contains('" + $(this).val() + "')").parent().show();
+        $("#maily td.hiddenCopy:not(:contains('" + $(this).val() + "'))").parent().hide();
     });    
 });
 $(function() {    

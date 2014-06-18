@@ -26,10 +26,11 @@ public class EmailDAOBean implements EmailDAO {
 	}
 
 	@Override
-	public void addEmail(String to, String copy, String subject, String body, String owner) {
+	public void addEmail(String to, String copy, String hiddenCopy, String subject, String body, String owner) {
 		EmailBean mail = new EmailBean();
 		mail.setRecipient(to);
 		mail.setCopy(copy);
+		mail.setHiddenCopy(hiddenCopy);
 		mail.setSubject(subject);
 		mail.setBody(body);
 		mail.setOwner(owner);

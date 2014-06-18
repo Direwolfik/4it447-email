@@ -5,10 +5,11 @@
 <jsp:useBean id="emailBean"
              class="javaee.mail.EmailBean"
              scope="session"/>
-<h1>E-mail odeslán</h1>
+<h1>E-mail bude odeslán za vámi zvolený čas</h1>
 <p>Uživatel: ${emailBean.owner}</p>
 <p>Komu: ${emailBean.recipient}</p>
 <p>Kopie: ${emailBean.copy}</p>
+<p>Skrytá kopie: ${emailBean.hiddenCopy}</p>
 <p>Předmět: ${emailBean.subject}</p>
 <p>Zpráva: ${emailBean.body}</p>
 <form action="sendMail" method="post">
