@@ -17,7 +17,8 @@ import javax.persistence.PersistenceContext;
  * inicializaci vytvoří spojení k JMS frontě, kterou drží otevřenou až do
  * okamžiku jeho likvidace (metoda destroy).
  * 
- * @author Jakub Kolář
+ * @author Jakub Kolář, Josef Novotný
+ * @since 1.0
  */
 @Stateless
 @LocalBean

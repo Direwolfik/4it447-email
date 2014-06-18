@@ -9,8 +9,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
- * @author Jakub Kolář
- *
+ * @author Jakub Kolář, Josef Novotný
+ * @since 1.0
  */
 @Stateless
 @Local(EmailDAO.class)
@@ -18,7 +18,9 @@ public class EmailDAOBean implements EmailDAO {
 	@PersistenceContext(unitName = "mail")
 	private EntityManager entityManager;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see javaee.mail.EmailDAO#getEmailsByOwner(java.lang.String)
 	 */
 	@SuppressWarnings("unchecked")
@@ -30,8 +32,11 @@ public class EmailDAOBean implements EmailDAO {
 		return query.getResultList();
 	}
 
-	/* (non-Javadoc)
-	 * @see javaee.mail.EmailDAO#addEmail(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see javaee.mail.EmailDAO#addEmail(java.lang.String, java.lang.String,
+	 * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
 	public void addEmail(String to, String copy, String hiddenCopy,
@@ -48,7 +53,9 @@ public class EmailDAOBean implements EmailDAO {
 		entityManager.flush();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see javaee.mail.EmailDAO#getEmails()
 	 */
 	@SuppressWarnings("unchecked")

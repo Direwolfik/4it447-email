@@ -5,8 +5,8 @@ import java.util.List;
 /**
  * DAO pro fotografie v albumu (bezstavová fasáda).
  * 
- * @author Jakub Kolář
- * 
+ * @author Jakub Kolář, Josef Novotný
+ * @since 1.0
  */
 public interface EmailDAO {
 

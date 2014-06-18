@@ -10,7 +10,8 @@ import javax.mail.Transport;
 /**
  * Třída zajišťující odeslání emailu po tom, co vyprší časovač.
  * 
- * @author Jakub Kolář
+ * @author Jakub Kolář, Josef Novotný
+ * @since 1.0
  * 
  */
 public class SendTimer extends TimerTask {
@@ -21,6 +22,11 @@ public class SendTimer extends TimerTask {
 		this.mail = mail;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.util.TimerTask#run()
+	 */
 	@Override
 	public void run() {
 		try {

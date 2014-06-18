@@ -28,6 +28,9 @@ import javax.persistence.PersistenceContext;
  * Message-Driven Bean implementation class for: SendEmailBean 
  * Třída naslouchá
  * zprávám v JMS frontě a provádí další akce na základě těchto zpráv
+ * 
+ * @author Jakub Kolář, Josef Novotný
+ * @since 1.0
  */
 @MessageDriven(mappedName = "jms/sendQueue", activationConfig = {
 		@ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge"),
