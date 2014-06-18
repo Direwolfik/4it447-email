@@ -17,6 +17,7 @@ public class EmailBean implements Serializable {
 	private int id;
 	private String recipient;
 	private String copy;
+	private String hiddenCopy;
     private String subject;
     private String body;
     private String owner;
@@ -69,6 +70,14 @@ public class EmailBean implements Serializable {
 
 	public void setRecipient(String recipient) {
 		this.recipient = recipient;
+	}
+
+	public String getHiddenCopy() {
+		return hiddenCopy;
+	}
+
+	public void setHiddenCopy(String hiddenCopy) {
+		this.hiddenCopy = hiddenCopy;
 	}
 }
 
