@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 /**
  * Třída reprezentující entitu kontaktu.
  * 
- * @author Josef Novotný
+ * @author Jakub Kolář, Josef Novotný
  * @since 1.0
  * 
  */
