@@ -1,6 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head><title>E-mail odeslán</title></head>
+	<head>
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+		<title>E-mail odeslán</title>
+	</head>
 <body>
 <jsp:useBean id="email"
              class="javaee.mail.Email"
