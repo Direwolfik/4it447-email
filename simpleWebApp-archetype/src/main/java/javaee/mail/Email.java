@@ -7,8 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+/**
+ * @author Jakub Kolář
+ *
+ */
 @Entity
-public class EmailBean implements Serializable {
+public class Email implements Serializable {
 
     /**
 	 * 
